@@ -31,11 +31,13 @@ namespace CSV_Merge
             else
             {
                 LinkedList<string> tempFilepaths = new LinkedList<string>();
+
                 using (FileStream tempStream = File.OpenWrite(Path.GetTempFileName()))
                 {
                     Merge(filepaths[0], filepaths[1], tempStream, culture);
                     tempFilepaths.AddLast(tempStream.Name);
                 }
+
                 foreach (string filepath in filepaths.Skip(2).SkipLast(1))
                 {
                     using (FileStream tempStream = File.OpenWrite(Path.GetTempFileName()))
@@ -46,6 +48,7 @@ namespace CSV_Merge
                             File.Delete(tempFilepaths.Last.Previous.Value);
                     }
                 }
+
                 Merge(tempFilepaths.Last.Value, filepaths.Last(), output, culture);
                 if (File.Exists(tempFilepaths.Last.Value))
                     File.Delete(tempFilepaths.Last.Value);
@@ -83,6 +86,7 @@ namespace CSV_Merge
 
                         int rows = dt1.Rows.Count;
                         int cols = dt1.Columns.Count;
+
                         for (int i = 0; i < cols; i++)
                         {
                             csvWriter.WriteField(dt1.Columns[i]);
