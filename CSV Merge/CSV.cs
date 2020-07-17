@@ -31,7 +31,6 @@ namespace CSV_Merge
             else
             {
                 LinkedList<string> tempFilepaths = new LinkedList<string>();
-
                 using (FileStream tempStream = File.OpenWrite(Path.GetTempFileName()))
                 {
                     Merge(filepaths[0], filepaths[1], tempStream, culture);
