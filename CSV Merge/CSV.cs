@@ -85,7 +85,6 @@ namespace CSV_Merge
 
                         int rows = dt1.Rows.Count;
                         int cols = dt1.Columns.Count;
-
                         for (int i = 0; i < cols; i++)
                         {
                             csvWriter.WriteField(dt1.Columns[i]);
