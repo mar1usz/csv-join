@@ -16,4 +16,4 @@ CSV.exe sales.csv new_sales.csv > merged_sales.csv
 
 ## Credits:
 - CsvHelper by https://joshclose.github.io/CsvHelper (MS-PL or Apache-2.0 license)
-- System.Data.DataTable by .NET Core (MIT license)
+- System.Data.DataTable by https://dot.net (MIT license)
