@@ -1,5 +1,5 @@
 # CSV Merge
-A command-line tool for merging dissimilar CSV files in C# dotnet-core:
+A command-line tool for merging dissimilar CSV files in C# .NET Core:
 ```
 CSV.exe sales.csv new_sales.csv > merged_sales.csv
 ```
