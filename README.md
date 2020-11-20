@@ -15,5 +15,5 @@ CSV.exe sales.csv new_sales.csv > merged_sales.csv
 - Visual Studio 2019
 
 ## Credits:
-- CsvHelper by https://joshclose.github.io/CsvHelper (MS-PL or Apache-2.0 license)
+- CsvHelper by https://joshclose.github.io/CsvHelper (MS-PL / Apache-2.0 license)
 - System.Data.DataTable by https://dot.net (MIT license)
