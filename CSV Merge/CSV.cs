@@ -1,7 +1,6 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.IO;
@@ -25,36 +24,18 @@ namespace CSV_Merge
                 throw new ArgumentNullException(nameof(filepaths));
             }
 
-            // Read first csv
-            DataTable dt1 = ReadCsv(filepaths.First(), culture);
+            // Read the first csv
+            DataTable dt = ReadCsv(filepaths.First(), culture);
 
-            // Read and merge the rest csvs
+            // Read and merge the rest of csvs
             foreach (string filepath in filepaths.Skip(1))
             {
-                DataTable dt2 = ReadCsv(filepath, culture);
-                MergeDataTables(dt1, dt2);
+                DataTable anotherDt = ReadCsv(filepath, culture);
+                MergeDataTables(dt, anotherDt);
             }
 
-            // Write merged csv
-            WriteCsv(dt1, output, culture);
-        }
-
-        private static DataTable ReadCsv(string filepath, CultureInfo culture)
-        {
-            using (var reader = new StreamReader(filepath))
-            using (var csv = new CsvReader(reader, culture))
-            {
-                csv.Configuration.TrimOptions = TrimOptions.Trim;
-
-                using (var dr = new CsvDataReader(csv))
-                {
-                    DataTable dt = new DataTable();
-
-                    dt.Load(dr);
-
-                    return dt;
-                }
-            }
+            // Write merged csv to output
+            WriteCsv(dt, output, culture);
         }
 
         private static void MergeDataTables(DataTable dt1, DataTable dt2)
@@ -68,29 +49,46 @@ namespace CSV_Merge
             dt1.Merge(dt2);
         }
 
+        private static DataTable ReadCsv(string filepath, CultureInfo culture)
+        {
+            using (var reader = new StreamReader(filepath))
+            using (var csv = new CsvReader(reader, culture))
+            {
+                csv.Configuration.TrimOptions = TrimOptions.Trim;
+
+                using (var dr = new CsvDataReader(csv))
+                {
+                    DataTable dt = new DataTable();
+                    dt.Load(dr);
+
+                    return dt;
+                }
+            }
+        }
+
         private static void WriteCsv(DataTable dt, Stream output, CultureInfo culture)
         {
             using (var writer = new StreamWriter(output))
-            using (var csvWriter = new CsvWriter(writer, culture))
+            using (var csv = new CsvWriter(writer, culture))
             {
-                csvWriter.Configuration.TrimOptions = TrimOptions.Trim;
+                csv.Configuration.TrimOptions = TrimOptions.Trim;
 
                 int rows = dt.Rows.Count;
                 int cols = dt.Columns.Count;
 
                 for (int i = 0; i < cols; i++)
                 {
-                    csvWriter.WriteField(dt.Columns[i]);
+                    csv.WriteField(dt.Columns[i]);
                 }
-                csvWriter.NextRecord();
+                csv.NextRecord();
 
                 for (int i = 0; i < rows; i++)
                 {
                     for (int j = 0; j < cols; j++)
                     {
-                        csvWriter.WriteField(dt.Rows[i][dt.Columns[j]]);
+                        csv.WriteField(dt.Rows[i][dt.Columns[j]]);
                     }
-                    csvWriter.NextRecord();
+                    csv.NextRecord();
                 }
             }
         }
