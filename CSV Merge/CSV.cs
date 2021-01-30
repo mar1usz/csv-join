@@ -59,6 +59,7 @@ namespace CSV_Merge
                 using (var dr = new CsvDataReader(csv))
                 {
                     DataTable dt = new DataTable();
+
                     dt.Load(dr);
 
                     return dt;
