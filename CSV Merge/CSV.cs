@@ -1,11 +1,11 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using System;
-using System.IO;
-using System.Data;
 using System.Collections.Generic;
-using System.Linq;
+using System.Data;
 using System.Globalization;
+using System.IO;
+using System.Linq;
 
 namespace CSV_Merge
 {
@@ -22,69 +22,50 @@ namespace CSV_Merge
         {
             if (filepaths.Length < 2)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(filepaths));
             }
-            else if (filepaths.Length == 2)
+
+            // Read first csv
+            DataTable dt1 = ReadCsv(filepaths.First(), culture);
+
+            // Read and merge the rest csvs
+            foreach (string filepath in filepaths.Skip(1))
             {
-                Merge(filepaths[0], filepaths[1], output, culture);
+                DataTable dt2 = ReadCsv(filepath, culture);
+                MergeDataTables(dt1, dt2);
             }
-            else
+
+            // Write merged csv
+            WriteCsv(dt1, output, culture);
+        }
+
+        private static DataTable ReadCsv(string filepath, CultureInfo culture)
+        {
+            using (var reader = new StreamReader(filepath))
+            using (var csv = new CsvReader(reader, culture))
             {
-                LinkedList<string> tempFilepaths = new LinkedList<string>();
+                csv.Configuration.TrimOptions = TrimOptions.Trim;
 
-                // Merge first two
-                using (FileStream tempStream = File.OpenWrite(Path.GetTempFileName()))
+                using (var dr = new CsvDataReader(csv))
                 {
-                    Merge(filepaths[0], filepaths[1], tempStream, culture);
-                    tempFilepaths.AddLast(tempStream.Name);
-                }
+                    DataTable dt = new DataTable();
 
-                // Merge in-between if any
-                foreach (string filepath in filepaths.Skip(2).SkipLast(1))
-                {
-                    using (FileStream tempStream = File.OpenWrite(Path.GetTempFileName()))
-                    {
-                        Merge(tempFilepaths.Last.Value, filepath, tempStream, culture);
-                        tempFilepaths.AddLast(tempStream.Name);
-                        if (File.Exists(tempFilepaths.Last.Previous.Value))
-                            File.Delete(tempFilepaths.Last.Previous.Value);
-                    }
-                }
+                    dt.Load(dr);
 
-                // Merge last one to output
-                Merge(tempFilepaths.Last.Value, filepaths.Last(), output, culture);
-                if (File.Exists(tempFilepaths.Last.Value))
-                    File.Delete(tempFilepaths.Last.Value);
+                    return dt;
+                }
             }
         }
 
-        public static void Merge(string filepath1, string filepath2, Stream output, CultureInfo culture)
+        private static void MergeDataTables(DataTable dt1, DataTable dt2)
         {
-            using (var reader1 = new StreamReader(filepath1))
-            using (var csv1 = new CsvReader(reader1, culture))
-            using (var reader2 = new StreamReader(filepath2))
-            using (var csv2 = new CsvReader(reader2, culture))
-            {
-                csv1.Configuration.TrimOptions = TrimOptions.Trim;
-                csv2.Configuration.TrimOptions = TrimOptions.Trim;
+            DataColumn[] dt1PrimaryKey = dt1.Columns.Cast<DataColumn>().Select(dt1col => dt1col).Where(dt1col => dt2.Columns.Contains(dt1col.ColumnName)).ToArray();
+            DataColumn[] dt2PrimaryKey = dt2.Columns.Cast<DataColumn>().Select(dt2col => dt2col).Where(dt2col => dt1.Columns.Contains(dt2col.ColumnName)).ToArray();
 
-                using (var dr1 = new CsvDataReader(csv1))
-                using (var dr2 = new CsvDataReader(csv2))
-                {
-                    DataTable dt1 = new DataTable();
-                    DataTable dt2 = new DataTable();
-                    dt1.Load(dr1);
-                    dt2.Load(dr2);
+            dt1.PrimaryKey = dt1PrimaryKey;
+            dt2.PrimaryKey = dt2PrimaryKey;
 
-                    DataColumn[] dt1PrimaryKey = dt1.Columns.Cast<DataColumn>().Select(dt1col => dt1col).Where(dt1col => dt2.Columns.Contains(dt1col.ColumnName)).ToArray();
-                    DataColumn[] dt2PrimaryKey = dt2.Columns.Cast<DataColumn>().Select(dt2col => dt2col).Where(dt2col => dt1.Columns.Contains(dt2col.ColumnName)).ToArray();
-                    dt1.PrimaryKey = dt1PrimaryKey;
-                    dt2.PrimaryKey = dt2PrimaryKey;
-                    dt1.Merge(dt2);
-
-                    WriteCsv(dt1, output, culture);
-                }
-            }
+            dt1.Merge(dt2);
         }
 
         private static void WriteCsv(DataTable dt, Stream output, CultureInfo culture)
