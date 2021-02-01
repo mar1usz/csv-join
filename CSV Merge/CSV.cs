@@ -24,27 +24,24 @@ namespace CSV_Merge
                 throw new ArgumentNullException(nameof(filepaths));
             }
 
-            // Read the first csv
+            // Read the first CSV
             DataTable dt = ReadCsv(filepaths.First(), culture);
 
-            // Read and merge the rest of csvs
+            // Read and merge the rest of CSVs
             foreach (string filepath in filepaths.Skip(1))
             {
-                DataTable anotherDt = ReadCsv(filepath, culture);
-                MergeDataTables(dt, anotherDt);
+                DataTable dtAnother = ReadCsv(filepath, culture);
+                MergeDataTables(dt, dtAnother);
             }
 
-            // Write merged csv to output
+            // Write merged CSV to the output
             WriteCsv(dt, output, culture);
         }
 
         private static void MergeDataTables(DataTable dt1, DataTable dt2)
         {
-            DataColumn[] dt1PrimaryKey = dt1.Columns.Cast<DataColumn>().Select(dt1col => dt1col).Where(dt1col => dt2.Columns.Contains(dt1col.ColumnName)).ToArray();
-            DataColumn[] dt2PrimaryKey = dt2.Columns.Cast<DataColumn>().Select(dt2col => dt2col).Where(dt2col => dt1.Columns.Contains(dt2col.ColumnName)).ToArray();
-
-            dt1.PrimaryKey = dt1PrimaryKey;
-            dt2.PrimaryKey = dt2PrimaryKey;
+            dt1.PrimaryKey = dt1.Columns.Cast<DataColumn>().Where(dt1col => dt2.Columns.Contains(dt1col.ColumnName)).ToArray();
+            dt2.PrimaryKey = dt2.Columns.Cast<DataColumn>().Where(dt2col => dt1.Columns.Contains(dt2col.ColumnName)).ToArray();
 
             dt1.Merge(dt2);
         }
@@ -74,8 +71,8 @@ namespace CSV_Merge
             {
                 csv.Configuration.TrimOptions = TrimOptions.Trim;
 
-                int rows = dt.Rows.Count;
                 int cols = dt.Columns.Count;
+                int rows = dt.Rows.Count;
 
                 for (int i = 0; i < cols; i++)
                 {
