@@ -43,9 +43,11 @@ namespace CSV_Merge
         {
             using var reader = new StreamReader(filepath);
             using var csv = new CsvReader(reader, culture);
+
             csv.Configuration.TrimOptions = TrimOptions.Trim;
 
             using var dr = new CsvDataReader(csv);
+
             DataTable dt = new DataTable();
 
             dt.Load(dr);
@@ -57,6 +59,7 @@ namespace CSV_Merge
         {
             using var writer = new StreamWriter(output);
             using var csv = new CsvWriter(writer, culture);
+
             csv.Configuration.TrimOptions = TrimOptions.Trim;
 
             int cols = dt.Columns.Count;
