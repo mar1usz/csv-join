@@ -41,46 +41,40 @@ namespace CSV_Merge
 
         public static DataTable ReadCsv(string filepath, CultureInfo culture)
         {
-            using (var reader = new StreamReader(filepath))
-            using (var csv = new CsvReader(reader, culture))
-            {
-                csv.Configuration.TrimOptions = TrimOptions.Trim;
+            using var reader = new StreamReader(filepath);
+            using var csv = new CsvReader(reader, culture);
+            csv.Configuration.TrimOptions = TrimOptions.Trim;
 
-                using (var dr = new CsvDataReader(csv))
-                {
-                    DataTable dt = new DataTable();
+            using var dr = new CsvDataReader(csv);
+            DataTable dt = new DataTable();
 
-                    dt.Load(dr);
+            dt.Load(dr);
 
-                    return dt;
-                }
-            }
+            return dt;
         }
 
         public static void WriteCsv(DataTable dt, Stream output, CultureInfo culture)
         {
-            using (var writer = new StreamWriter(output))
-            using (var csv = new CsvWriter(writer, culture))
+            using var writer = new StreamWriter(output);
+            using var csv = new CsvWriter(writer, culture);
+            csv.Configuration.TrimOptions = TrimOptions.Trim;
+
+            int cols = dt.Columns.Count;
+            int rows = dt.Rows.Count;
+
+            for (int i = 0; i < cols; i++)
             {
-                csv.Configuration.TrimOptions = TrimOptions.Trim;
+                csv.WriteField(dt.Columns[i]);
+            }
+            csv.NextRecord();
 
-                int cols = dt.Columns.Count;
-                int rows = dt.Rows.Count;
-
-                for (int i = 0; i < cols; i++)
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
                 {
-                    csv.WriteField(dt.Columns[i]);
+                    csv.WriteField(dt.Rows[i][dt.Columns[j]]);
                 }
                 csv.NextRecord();
-
-                for (int i = 0; i < rows; i++)
-                {
-                    for (int j = 0; j < cols; j++)
-                    {
-                        csv.WriteField(dt.Rows[i][dt.Columns[j]]);
-                    }
-                    csv.NextRecord();
-                }
             }
         }
 
