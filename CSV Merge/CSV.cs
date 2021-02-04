@@ -14,6 +14,7 @@ namespace CSV_Merge
         {
             Stream output = Console.OpenStandardOutput();
             CultureInfo culture = CultureInfo.InvariantCulture;
+
             Merge(args, output, culture);
         }
 
@@ -27,7 +28,7 @@ namespace CSV_Merge
             // Read the first CSV
             DataTable dt = ReadCsv(filepaths.First(), culture);
 
-            // Read and merge the rest of CSVs
+            // Read and merge the rest of the CSVs
             foreach (string filepath in filepaths.Skip(1))
             {
                 DataTable dtAnother = ReadCsv(filepath, culture);
