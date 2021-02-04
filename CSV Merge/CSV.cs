@@ -38,15 +38,7 @@ namespace CSV_Merge
             WriteCsv(dt, output, culture);
         }
 
-        private static void MergeDataTables(DataTable dt1, DataTable dt2)
-        {
-            dt1.PrimaryKey = dt1.Columns.Cast<DataColumn>().Where(dt1col => dt2.Columns.Contains(dt1col.ColumnName)).ToArray();
-            dt2.PrimaryKey = dt2.Columns.Cast<DataColumn>().Where(dt2col => dt1.Columns.Contains(dt2col.ColumnName)).ToArray();
-
-            dt1.Merge(dt2);
-        }
-
-        private static DataTable ReadCsv(string filepath, CultureInfo culture)
+        public static DataTable ReadCsv(string filepath, CultureInfo culture)
         {
             using (var reader = new StreamReader(filepath))
             using (var csv = new CsvReader(reader, culture))
@@ -64,7 +56,7 @@ namespace CSV_Merge
             }
         }
 
-        private static void WriteCsv(DataTable dt, Stream output, CultureInfo culture)
+        public static void WriteCsv(DataTable dt, Stream output, CultureInfo culture)
         {
             using (var writer = new StreamWriter(output))
             using (var csv = new CsvWriter(writer, culture))
@@ -89,6 +81,14 @@ namespace CSV_Merge
                     csv.NextRecord();
                 }
             }
+        }
+
+        private static void MergeDataTables(DataTable dt1, DataTable dt2)
+        {
+            dt1.PrimaryKey = dt1.Columns.Cast<DataColumn>().Where(dt1col => dt2.Columns.Contains(dt1col.ColumnName)).ToArray();
+            dt2.PrimaryKey = dt2.Columns.Cast<DataColumn>().Where(dt2col => dt1.Columns.Contains(dt2col.ColumnName)).ToArray();
+
+            dt1.Merge(dt2);
         }
     }
 }
