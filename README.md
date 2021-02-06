@@ -6,8 +6,8 @@ CsvJoin.exe Data sales.csv new_sales.csv > merged_sales.csv
 
 ## Features:
 - Execute SQL against CSV files
-- Save results to CSV file
-- Save auto-generated SQL file
+- Save results to CSV
+- Save auto-generated SQL
 
 ## Prerequisites:
 - Microsoft Access Database Engine 2016 Redistributable
