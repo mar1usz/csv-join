@@ -13,13 +13,11 @@ namespace CsvJoin
             string sql = "";
 
             sql += PrepareLeftJoinSql(directory, filenames, culture);
-            sql += Environment.NewLine;
 
             sql += @"     UNION";
             sql += Environment.NewLine;
 
             sql += PrepareRightAntiJoinSql(directory, filenames, culture);
-            sql += Environment.NewLine;
 
             return sql;
         }
