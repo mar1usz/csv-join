@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "CSV Merge": {
-      "commandName": "Project",
-      "commandLineArgs": "sales.csv new_sales.csv"
-    }
-  }
-}

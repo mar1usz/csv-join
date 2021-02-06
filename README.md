@@ -1,19 +1,19 @@
-# CSV Merge
-A command-line tool for merging dissimilar CSV files in C# .NET Core:
+# CSV Join
+A command-line tool for perforimg full outer joins on CSV files in C# .NET Core:
 ```
-CSV.exe sales.csv new_sales.csv > merged_sales.csv
+CsvJoin.exe Data sales.csv new_sales.csv > merged_sales.csv
 ```
 
 ## Features:
-- Merge dissimilar CSV files using all header fields
-- Merge multiple files
-- Specify the culture that you want to use (determines the default delimiter, default line ending and formatting)
-- Trim all leading/trailing whitespace characters
+- Execute SQL against CSV files
+- Save results to CSV
 
 ## Prerequisites:
+- Microsoft Access Database Engine 2016 Redistributable
 - .NET Core 3.1
 - Visual Studio 2019
 
 ## Credits:
+- System.Data.OleDb by https://www.nuget.org/packages/System.Data.OleDb (MIT license)
+- Microsoft Access Database Engine 2016 by https://www.microsoft.com/en-us/download/details.aspx?id=54920 (own license)
 - CsvHelper by https://joshclose.github.io/CsvHelper (MS-PL or Apache-2.0 license)
-- System.Data.DataTable by https://dot.net (MIT license)
