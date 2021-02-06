@@ -177,8 +177,8 @@ namespace CsvJoin
         private string[][] GetColumnNamesFromFilepaths(string directory,
             string[] filenames, CultureInfo culture)
              => filenames
-             .Select(filename=> CsvUtilities.ReadHeader(directory, filename,
-                 culture))
+             .Select(filename => CsvUtilities.ReadHeader(
+                 directory, filename, culture))
              .ToArray();
     }
 }

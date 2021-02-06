@@ -11,14 +11,11 @@ namespace CsvJoin
 {
     public class Program
     {
-        static async Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
             string directory = args.First();
 
-            string[] filenames = args
-                .Skip(1)
-                .Select(filepath => Path.GetFileName(filepath))
-                .ToArray();
+            string[] filenames = args.Skip(1).ToArray();
 
             var culture = CultureInfo.InvariantCulture;
 
