@@ -15,7 +15,7 @@ namespace CsvJoin
         {
             string directory = args.First();
 
-            string[] filenames = args.Skip(1).ToArray();
+            string[] filenames = args.Skip(1).Take(2).ToArray();
 
             var culture = CultureInfo.InvariantCulture;
 
