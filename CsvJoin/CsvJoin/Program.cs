@@ -1,9 +1,5 @@
-﻿using CsvHelper;
-using System;
-using System.Data.Common;
-using System.Data.OleDb;
+﻿using System;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +7,10 @@ namespace CsvJoin
 {
     public class Program
     {
+        private static readonly SqlPreparator _preparator = new SqlPreparator();
+        private static readonly SqlExecutor _executor = new SqlExecutor();
+        private static readonly SqlSaver _saver = new SqlSaver();
+
         public static async Task Main(string[] args)
         {
             string directory = args.First();
@@ -19,9 +19,7 @@ namespace CsvJoin
 
             var culture = CultureInfo.InvariantCulture;
 
-            SqlPreparator preparator = new SqlPreparator();
-
-            string sql = preparator.PrepareFullJoinSql(directory, filenames,
+            string sql = _preparator.PrepareFullJoinSql(directory, filenames,
                 culture);
 
 
@@ -32,45 +30,9 @@ namespace CsvJoin
 
             var output = Console.OpenStandardOutput();
 
-            await ExecuteSqlRawAsync(sql, connectionString, output, culture);
+            await _executor.ExecuteSqlAsync(sql, connectionString, output, culture);
 
-            await SaveSqlRawAsync(sql, filepath: @"SQLQuery.sql");
+            await _saver.SaveSqlAsync(sql, filepath: @"SQLQuery.sql");
         }
-
-        public static async Task ExecuteSqlRawAsync(string sql,
-            string connectionString, Stream output, CultureInfo culture)
-        {
-            using var connection = new OleDbConnection(connectionString);
-
-            connection.Open();
-
-            var command = new OleDbCommand(sql, connection);
-
-            var reader = await command.ExecuteReaderAsync();
-
-
-            using var writer = new StreamWriter(output);
-            using var csv = new CsvWriter(writer, culture);
-
-            var cols = reader.GetColumnSchema();
-
-            for (int i = 0; i < cols.Count; i++)
-            {
-                csv.WriteField(cols[i].ColumnName);
-            }
-            csv.NextRecord();
-
-            while (reader.Read())
-            {
-                for (int i = 0; i < reader.FieldCount; i++)
-                {
-                    csv.WriteField(reader[i]);
-                }
-                csv.NextRecord();
-            }
-        }
-
-        public static async Task SaveSqlRawAsync(string sql, string filepath)
-            => await File.WriteAllTextAsync(filepath, sql);
     }
 }
