@@ -1,16 +1,20 @@
 ﻿using CsvHelper;
+using CsvJoin.Abstractions;
 using System.Data.Common;
 using System.Data.OleDb;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace CsvJoin
+namespace CsvJoin.Sql
 {
-    public class SqlExecutor
+    public class SqlExecutor : ISqlExecutor
     {
-        public async Task ExecuteSqlAsync(string sql,
-            string connectionString, Stream output, CultureInfo culture)
+        public async Task ExecuteSqlAsync(
+            string sql,
+            string connectionString,
+            Stream output,
+            CultureInfo culture)
         {
             using var connection = new OleDbConnection(connectionString);
 

@@ -2,11 +2,13 @@
 using System.Globalization;
 using System.IO;
 
-namespace CsvJoin
+namespace CsvJoin.Utilities
 {
     public static class CsvUtilities
     {
-        public static string[] ReadHeader(string directory, string filename,
+        public static string[] ReadHeader(
+            string directory,
+            string filename,
             CultureInfo culture)
         {
             using var reader = new StreamReader($@"{directory}\{filename}");

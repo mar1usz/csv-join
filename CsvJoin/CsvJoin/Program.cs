@@ -1,38 +1,32 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
+﻿using CsvJoin.Abstractions;
+using CsvJoin.Sql;
+using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
 namespace CsvJoin
 {
     public class Program
     {
-        private static readonly SqlPreparator _preparator = new SqlPreparator();
-        private static readonly SqlExecutor _executor = new SqlExecutor();
-        private static readonly SqlSaver _saver = new SqlSaver();
-
         public static async Task Main(string[] args)
         {
-            string directory = args.First();
+            var services = new ServiceCollection();
 
-            string[] filenames = args.Skip(1).Take(2).ToArray();
+            ConfigureServices(services);
 
-            var culture = CultureInfo.InvariantCulture;
+            var serviceProvider = services.BuildServiceProvider();
 
-            string sql = _preparator.PrepareFullJoinSql(directory, filenames,
-                culture);
+            await serviceProvider.GetService<Application>().RunAsync(args);
+        }
 
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            services.AddTransient<ISqlPreparator, SqlPreparator>();
 
-            string connectionString = $@"Provider=Microsoft.ACE.OLEDB.16.0;
-                Data Source={directory};
-                OLE DB Services=-1;
-                Extended Properties=""text;Excel 16.0;HDR=YES;IMEX=1""";
+            services.AddTransient<ISqlExecutor, SqlExecutor>();
 
-            var output = Console.OpenStandardOutput();
+            services.AddTransient<ISqlSaver, SqlSaver>();
 
-            await _executor.ExecuteSqlAsync(sql, connectionString, output, culture);
-
-            await _saver.SaveSqlAsync(sql, filepath: @"SQLQuery.sql");
+            services.AddTransient<Application>();
         }
     }
 }
