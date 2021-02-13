@@ -218,8 +218,8 @@ namespace CsvJoin
 
         private string[] GetTableNamesFromFilenames(string[] filenames)
             => filenames
-            .Select(filename => Path.GetFileNameWithoutExtension(filename))
-            .ToArray();
+                .Select(filename => Path.GetFileNameWithoutExtension(filename))
+                .ToArray();
 
         // This function is wrote like this for convenience.
         // In most cases you'd use multidimensional arrays over
@@ -228,11 +228,12 @@ namespace CsvJoin
             string directory,
             string[] filenames,
             CultureInfo culture)
-             => filenames
-             .Select(filename => CsvUtilities.ReadHeader(
-                 directory,
-                 filename,
-                 culture))
-             .ToArray();
+                 => filenames
+                 .Select(filename =>
+                    CsvUtilities.ReadHeader(
+                        directory,
+                        filename,
+                        culture))
+                 .ToArray();
     }
 }

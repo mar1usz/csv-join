@@ -43,7 +43,7 @@ namespace CsvJoin
                 filenames,
                 culture);
 
-            sql = _formatter.FormatSql(sql);
+            sql = _formatter.FormatSql(sql, indentChar: ' ');
 
 
             string connectionString = $@"Provider=Microsoft.ACE.OLEDB.16.0;
