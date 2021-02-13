@@ -38,9 +38,9 @@ namespace CsvJoin
             return sql;
         }
 
-        private int GetIndentSizeFromSqlLine(string line)
-            => (line.Contains('['))
-            ? line.IndexOf('[')
-            : line.Length + 1;
+        private int GetIndentSizeFromSqlLine(string sqlLine)
+            => (sqlLine.Contains('['))
+                ? sqlLine.IndexOf('[')
+                : sqlLine.Length + 1;
     }
 }
