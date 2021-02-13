@@ -229,11 +229,8 @@ namespace CsvJoin
             string[] filenames,
             CultureInfo culture)
                  => filenames
-                 .Select(filename =>
-                    CsvUtilities.ReadHeader(
-                        directory,
-                        filename,
-                        culture))
+                 .Select(filename => CsvUtilities.ReadHeader(
+                     directory, filename, culture))
                  .ToArray();
     }
 }
