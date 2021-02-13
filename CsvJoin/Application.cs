@@ -24,6 +24,11 @@ namespace CsvJoin
 
         public async Task RunAsync(string[] args)
         {
+            if (args.Length < 3)
+            {
+                throw new ArgumentException(nameof(args));
+            }
+
             string directory = args.First();
 
             string[] filenames = args.Skip(1).Take(2).ToArray();
