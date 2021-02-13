@@ -37,7 +37,7 @@ namespace CsvJoin
         }
 
         // Gets the index of the first occurence of the '['
-        // character or where it would have been if the line
+        // char or where it would have been if the line
         // doesn't have it.
         private int GetIndentSizeFromSqlLine(string sqlLine)
             => (sqlLine.Contains('['))
