@@ -20,6 +20,7 @@ namespace CsvJoin
                 directory,
                 filenames,
                 culture);
+            sql += Environment.NewLine;
 
             sql += @"UNION";
             sql += Environment.NewLine;
@@ -94,13 +95,23 @@ namespace CsvJoin
                 commonColumnsFirst);
             sql += Environment.NewLine;
 
-            foreach (string commonColumn in commonColumns.Skip(1))
+            foreach (string commonColumn in commonColumns.Skip(1).SkipLast(1))
             {
                 sql += string.Format(@"AND [{0}].[{2}] = [{1}].[{2}]",
                     tables[0],
                     tables[1],
                     commonColumn);
                 sql += Environment.NewLine;
+            }
+
+            if (commonColumns.Length > 1)
+            {
+                string commonColumnLast = commonColumns.Last();
+
+                sql += string.Format(@"AND [{0}].[{2}] = [{1}].[{2}]",
+                    tables[0],
+                    tables[1],
+                    commonColumnLast);
             }
 
             return sql;
@@ -185,12 +196,21 @@ namespace CsvJoin
                 commonColumnsFirst);
             sql += Environment.NewLine;
 
-            foreach (string commonColumn in commonColumns.Skip(1))
+            foreach (string commonColumn in commonColumns.Skip(1).SkipLast(1))
             {
                 sql += string.Format(@"AND [{0}].[{1}] IS NULL",
                     tables[0],
                     commonColumn);
                 sql += Environment.NewLine;
+            }
+
+            if (commonColumns.Length > 1)
+            {
+                string commonColumnLast = commonColumns.Last();
+
+                sql += string.Format(@"AND [{0}].[{1}] IS NULL",
+                    tables[0],
+                    commonColumnLast);
             }
 
             return sql;
