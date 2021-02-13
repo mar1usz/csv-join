@@ -56,28 +56,20 @@ namespace CsvJoin
             string sql = "";
 
             string joinedColumnsFirst = joinedColumns.First();
-            string joinedColumnsLast = joinedColumns.Last();
 
-            sql += string.Format(@"    SELECT [{0}].[{1}],",
+            sql += string.Format(@"    SELECT [{0}].[{1}]",
                 columns[0].Contains(joinedColumnsFirst) ? tables[0]
                 : tables[1],
                 joinedColumnsFirst);
             sql += Environment.NewLine;
 
-            foreach (string joinedColumn in joinedColumns
-                .Skip(1)
-                .SkipLast(1))
+            foreach (string joinedColumn in joinedColumns.Skip(1))
             {
-                sql += string.Format(@"           [{0}].[{1}],",
+                sql += string.Format(@"          ,[{0}].[{1}]",
                     columns[0].Contains(joinedColumn) ? tables[0] : tables[1],
                     joinedColumn);
                 sql += Environment.NewLine;
             }
-
-            sql += string.Format(@"           [{0}].[{1}]",
-                columns[0].Contains(joinedColumnsLast) ? tables[0] : tables[1],
-                joinedColumnsLast);
-            sql += Environment.NewLine;
 
             sql += string.Format(@"      FROM [{0}] AS [{1}]",
                 filenames[0], tables[0]);
@@ -130,28 +122,20 @@ namespace CsvJoin
             string sql = "";
 
             string joinedColumnsFirst = joinedColumns.First();
-            string joinedColumnsLast = joinedColumns.Last();
 
-            sql += string.Format(@"    SELECT [{0}].[{1}],",
+            sql += string.Format(@"    SELECT [{0}].[{1}]",
                 columns[1].Contains(joinedColumnsFirst) ? tables[1]
                 : tables[0],
                 joinedColumnsFirst);
             sql += Environment.NewLine;
 
-            foreach (string joinedColumn in joinedColumns
-                .Skip(1)
-                .SkipLast(1))
+            foreach (string joinedColumn in joinedColumns.Skip(1))
             {
-                sql += string.Format(@"           [{0}].[{1}],",
+                sql += string.Format(@"          ,[{0}].[{1}]",
                     columns[1].Contains(joinedColumn) ? tables[1] : tables[0],
                     joinedColumn);
                 sql += Environment.NewLine;
             }
-
-            sql += string.Format(@"           [{0}].[{1}]",
-                columns[1].Contains(joinedColumnsLast) ? tables[1] : tables[0],
-                joinedColumnsLast);
-            sql += Environment.NewLine;
 
             sql += string.Format(@"      FROM [{0}] AS [{1}]",
                 filenames[0], tables[0]);
@@ -160,7 +144,7 @@ namespace CsvJoin
             // RIGHT JOIN _ ON _.[] = ‗.[]
             //            AND _.[] = ‗.[]
             //            AND ...
-            sql += string.Format(@" RIGHT JOIN [{0}] AS [{1}]",
+            sql += string.Format(@"RIGHT JOIN [{0}] AS [{1}]",
                 filenames[1], tables[1]);
             sql += Environment.NewLine;
 
