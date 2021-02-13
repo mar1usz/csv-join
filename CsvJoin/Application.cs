@@ -9,15 +9,18 @@ namespace CsvJoin
     public class Application
     {
         private readonly ISqlPreparator _preparator;
+        private readonly ISqlFormatter _formatter;
         private readonly ISqlExecutor _executor;
         private readonly ISqlSaver _saver;
 
         public Application(
             ISqlPreparator preparator,
+            ISqlFormatter formatter,
             ISqlExecutor executor,
             ISqlSaver saver)
         {
             _preparator = preparator;
+            _formatter = formatter;
             _executor = executor;
             _saver = saver;
         }
@@ -39,6 +42,8 @@ namespace CsvJoin
                 directory,
                 filenames,
                 culture);
+
+            sql = _formatter.FormatSql(sql);
 
 
             string connectionString = $@"Provider=Microsoft.ACE.OLEDB.16.0;
