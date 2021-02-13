@@ -26,9 +26,7 @@ namespace CsvJoin
                         indentChar,
                         (indentSizeMax - GetIndentSizeFromSqlLine(sqlLine))));
 
-            sql = string.Join(
-                Environment.NewLine,
-                sqlLines);
+            sql = string.Join(Environment.NewLine, sqlLines);
 
             if (insertFinalNewLine)
             {
