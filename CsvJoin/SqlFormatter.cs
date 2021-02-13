@@ -21,10 +21,9 @@ namespace CsvJoin
                 .Max();
 
             sqlLines = sqlLines
-                .Select(sqlLine =>
-                    sqlLine.Indent(
-                        indentChar,
-                        (indentSizeMax - GetIndentSizeFromSqlLine(sqlLine))));
+                .Select(sqlLine => sqlLine.Indent(
+                    indentChar,
+                    (indentSizeMax - GetIndentSizeFromSqlLine(sqlLine))));
 
             sql = string.Join(Environment.NewLine, sqlLines);
 
