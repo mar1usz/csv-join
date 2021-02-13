@@ -1,5 +1,4 @@
 ﻿using CsvJoin.Abstractions;
-using CsvJoin.Sql;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 

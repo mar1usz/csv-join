@@ -6,7 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace CsvJoin.Sql
+namespace CsvJoin
 {
     public class SqlExecutor : ISqlExecutor
     {
