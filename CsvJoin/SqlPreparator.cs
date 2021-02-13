@@ -52,10 +52,10 @@ namespace CsvJoin
                 .Intersect(columns[1])
                 .ToArray();
 
-            // SELECT []
-            //       ,[]
+            // SELECT _/‗.[]
+            //       ,_/‗.[]
             //       ,...
-            //   FROM _/‗
+            //   FROM _
             string sql = "";
 
             string joinedColumnsFirst = joinedColumns.First();
@@ -126,10 +126,10 @@ namespace CsvJoin
                 .Intersect(columns[1])
                 .ToArray();
 
-            // SELECT []
-            //       ,[]
+            // SELECT _/‗.[]
+            //       ,_/‗.[]
             //       ,...
-            //   FROM _/‗
+            //   FROM _
             string sql = "";
 
             string joinedColumnsFirst = joinedColumns.First();
