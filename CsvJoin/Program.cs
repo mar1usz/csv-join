@@ -13,14 +13,10 @@ namespace CsvJoin
 
             ConfigureServices(services);
 
-            await CreateServiceProvider(services)
-                .GetService<Application>()
-                .RunAsync(args);
-        }
+            var serviceProvider = services.BuildServiceProvider();
 
-        public static IServiceProvider CreateServiceProvider(
-            IServiceCollection services) =>
-                services.BuildServiceProvider();
+            await serviceProvider.GetService<Application>().RunAsync(args);
+        }
 
         public static void ConfigureServices(IServiceCollection services)
         {
