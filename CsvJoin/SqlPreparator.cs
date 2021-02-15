@@ -216,8 +216,8 @@ namespace CsvJoin
             return sql;
         }
 
-        private string[] GetTableNamesFromFilenames(string[] filenames)
-            => filenames
+        private string[] GetTableNamesFromFilenames(string[] filenames) =>
+            filenames
                 .Select(filename => Path.GetFileNameWithoutExtension(filename))
                 .ToArray();
 
@@ -227,10 +227,10 @@ namespace CsvJoin
         private string[][] GetColumnNamesFromFilepaths(
             string directory,
             string[] filenames,
-            CultureInfo culture)
-                 => filenames
-                 .Select(filename => CsvUtilities.ReadHeader(
-                     directory, filename, culture))
-                 .ToArray();
+            CultureInfo culture) =>
+                filenames
+                    .Select(filename => CsvUtilities.ReadHeader(
+                        directory, filename, culture))
+                    .ToArray();
     }
 }

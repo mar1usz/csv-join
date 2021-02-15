@@ -21,9 +21,10 @@ namespace CsvJoin
                 .Max();
 
             sqlLines = sqlLines
-                .Select(sqlLine => sqlLine.Indent(
-                    indentChar,
-                    (indentSizeMax - GetIndentSizeFromSqlLine(sqlLine))));
+                .Select(sqlLine =>
+                    sqlLine.Indent(
+                        indentChar,
+                        (indentSizeMax - GetIndentSizeFromSqlLine(sqlLine))));
 
             sql = string.Join(Environment.NewLine, sqlLines);
 
@@ -38,9 +39,7 @@ namespace CsvJoin
         // Gets the index of the first occurence of the '['
         // char or where it would have been if the line
         // doesn't have it.
-        private int GetIndentSizeFromSqlLine(string sqlLine)
-            => (sqlLine.Contains('['))
-                ? sqlLine.IndexOf('[')
-                : sqlLine.Length + 1;
+        private int GetIndentSizeFromSqlLine(string sqlLine) =>
+            sqlLine.Contains('[') ? sqlLine.IndexOf('[') : sqlLine.Length + 1;
     }
 }
