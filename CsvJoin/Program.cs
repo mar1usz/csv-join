@@ -1,6 +1,5 @@
 ﻿using CsvJoin.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Threading.Tasks;
 
 namespace CsvJoin
@@ -18,7 +17,7 @@ namespace CsvJoin
             await serviceProvider.GetService<Application>().RunAsync(args);
         }
 
-        public static void ConfigureServices(IServiceCollection services)
+        private static void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<ISqlPreparator, SqlPreparator>();
 
