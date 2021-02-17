@@ -15,6 +15,6 @@ CsvJoin.exe Data sales.csv new_sales.csv > joined_sales.csv
 - Visual Studio 2019
 
 ## Credits:
-- Microsoft Access Database Engine 2016 by https://www.microsoft.com/en-us/download/details.aspx?id=54920 ([license](O15_RTM_ACE.1_RTM_EN.txt))
 - System.Data.OleDb by https://www.nuget.org/packages/System.Data.OleDb (MIT license)
+- Microsoft Access Database Engine 2016 by https://www.microsoft.com/en-us/download/details.aspx?id=54920 ([license](O15_RTM_ACE.1_RTM_EN.txt))
 - CsvHelper by https://joshclose.github.io/CsvHelper (MS-PL or Apache-2.0 license)
