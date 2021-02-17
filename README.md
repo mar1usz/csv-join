@@ -10,8 +10,8 @@ CsvJoin.exe Data sales.csv new_sales.csv > joined_sales.csv
 - Save auto-generated SQL
 
 ## Prerequisites:
-- Microsoft Access Database Engine 2016 Redistributable
 - .NET Core 3.1
+- Microsoft Access Database Engine 2016 Redistributable
 - Visual Studio 2019
 
 ## Credits:
