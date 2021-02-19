@@ -15,6 +15,5 @@ CsvJoin.exe Data sales.csv new_sales.csv > joined_sales.csv
 - Visual Studio 2019
 
 ## Credits:
-- Microsoft.Extensions.DependencyInjection by https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection (MIT license)
 - System.Data.OleDb by https://www.nuget.org/packages/System.Data.OleDb (MIT license)
 - CsvHelper by https://joshclose.github.io/CsvHelper (MS-PL or Apache-2.0 license)
