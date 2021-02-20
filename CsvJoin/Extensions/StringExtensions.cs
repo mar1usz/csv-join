@@ -5,9 +5,9 @@
         public static string Indent(
             this string value,
             char indentChar,
-            int size)
+            int indentation)
         {
-            string indentString = new string(indentChar, size);
+            string indentString = new string(indentChar, indentation);
 
             return string.Concat(indentString, value);
         }
