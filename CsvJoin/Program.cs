@@ -14,7 +14,7 @@ namespace CsvJoin
 
             var serviceProvider = services.BuildServiceProvider();
 
-            await serviceProvider.GetService<Application>().RunAsync(args);
+            await serviceProvider.GetRequiredService<Application>().RunAsync(args);
         }
 
         private static void ConfigureServices(IServiceCollection services)
