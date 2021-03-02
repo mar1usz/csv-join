@@ -22,8 +22,8 @@ namespace CsvJoin
 
             sqlLines = sqlLines
                 .Select(sqlLine => sqlLine.Indent(
-                    indentChar,
-                    (indentSizeMax - GetIndentSizeFromSqlLine(sqlLine))));
+                    indentSizeMax - GetIndentSizeFromSqlLine(sqlLine),
+                    indentChar));
 
             sql = string.Join(Environment.NewLine, sqlLines);
 

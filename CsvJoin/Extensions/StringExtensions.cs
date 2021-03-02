@@ -4,8 +4,8 @@
     {
         public static string Indent(
             this string value,
-            char indentChar,
-            int indentation)
+            int indentation,
+            char indentChar)
         {
             string indentString = new string(indentChar, indentation);
 
