@@ -61,7 +61,6 @@ namespace CsvJoin
 
             string joinedColumnsFirst = joinedColumns.First();
 
-            sql += Environment.NewLine;
             sql += string.Format(@"SELECT [{0}].[{1}]",
                 columns[0].Contains(joinedColumnsFirst) ? tables[0] : tables[1],
                 joinedColumnsFirst);
