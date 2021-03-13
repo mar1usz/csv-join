@@ -24,7 +24,6 @@ namespace CsvJoin
 
             var reader = await command.ExecuteReaderAsync();
 
-
             using var writer = new StreamWriter(output);
             using var csv = new CsvWriter(writer, culture);
 
