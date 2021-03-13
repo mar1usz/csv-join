@@ -60,7 +60,6 @@ namespace CsvJoin
             string sql = "";
 
             string joinedColumnsFirst = joinedColumns.First();
-
             sql += string.Format(@"SELECT [{0}].[{1}]",
                 columns[0].Contains(joinedColumnsFirst) ? tables[0] : tables[1],
                 joinedColumnsFirst);
@@ -87,7 +86,6 @@ namespace CsvJoin
                 tables[1]);
 
             string commonColumnsFirst = commonColumns.First();
-
             sql += Environment.NewLine;
             sql += string.Format(@"ON [{0}].[{2}] = [{1}].[{2}]",
                 tables[0],
@@ -133,7 +131,6 @@ namespace CsvJoin
             string sql = "";
 
             string joinedColumnsFirst = joinedColumns.First();
-
             sql += string.Format(@"SELECT [{0}].[{1}]",
                 columns[1].Contains(joinedColumnsFirst) ? tables[1] : tables[0],
                 joinedColumnsFirst);
@@ -160,7 +157,6 @@ namespace CsvJoin
                 tables[1]);
 
             string commonColumnsFirst = commonColumns.First();
-
             sql += Environment.NewLine;
             sql += string.Format(@"ON [{0}].[{2}] = [{1}].[{2}]",
                 tables[0],
