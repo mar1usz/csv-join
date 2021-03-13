@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace CsvJoin
 {
-    public class DefaultSqlPreparator : ISqlPreparator
+    public class SqlPreparator : ISqlPreparator
     {
         public string PrepareFullJoinSql(
             string directory,

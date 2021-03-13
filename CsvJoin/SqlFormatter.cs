@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CsvJoin
 {
-    public class DefaultSqlFormatter : ISqlFormatter
+    public class SqlFormatter : ISqlFormatter
     {
         public string FormatSql(
             string sql,

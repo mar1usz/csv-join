@@ -19,13 +19,13 @@ namespace CsvJoin
 
         private static void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<ISqlPreparator, DefaultSqlPreparator>();
+            services.AddTransient<ISqlPreparator, SqlPreparator>();
 
-            services.AddTransient<ISqlFormatter, DefaultSqlFormatter>();
+            services.AddTransient<ISqlFormatter, SqlFormatter>();
 
-            services.AddTransient<ISqlExecutor, DefaultSqlExecutor>();
+            services.AddTransient<ISqlExecutor, SqlExecutor>();
 
-            services.AddTransient<ISqlSaver, DefaultSqlSaver>();
+            services.AddTransient<ISqlSaver, SqlSaver>();
 
             services.AddTransient<Application>();
         }
