@@ -1,4 +1,4 @@
-﻿using CsvJoin.Abstractions;
+﻿using CsvJoin.Services.Abstractions;
 using System;
 using System.Globalization;
 using System.Linq;

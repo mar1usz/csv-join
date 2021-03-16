@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace CsvJoin.Abstractions
+namespace CsvJoin.Services.Abstractions
 {
     public interface ISqlPreparator
     {

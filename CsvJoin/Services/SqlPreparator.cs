@@ -1,11 +1,11 @@
-﻿using CsvJoin.Abstractions;
+﻿using CsvJoin.Services.Abstractions;
 using CsvJoin.Utilities;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 
-namespace CsvJoin
+namespace CsvJoin.Services
 {
     public class SqlPreparator : ISqlPreparator
     {

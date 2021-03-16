@@ -1,8 +1,8 @@
-﻿using CsvJoin.Abstractions;
+﻿using CsvJoin.Services.Abstractions;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace CsvJoin
+namespace CsvJoin.Services
 {
     public class SqlSaver : ISqlSaver
     {

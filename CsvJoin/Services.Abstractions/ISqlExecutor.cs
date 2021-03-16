@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace CsvJoin.Abstractions
+namespace CsvJoin.Services.Abstractions
 {
     public interface ISqlExecutor
     {

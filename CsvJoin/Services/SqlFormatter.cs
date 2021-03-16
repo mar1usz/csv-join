@@ -1,9 +1,9 @@
-﻿using CsvJoin.Abstractions;
-using CsvJoin.Extensions;
+﻿using CsvJoin.Extensions;
+using CsvJoin.Services.Abstractions;
 using System;
 using System.Linq;
 
-namespace CsvJoin
+namespace CsvJoin.Services
 {
     public class SqlFormatter : ISqlFormatter
     {
@@ -39,6 +39,6 @@ namespace CsvJoin
         // character or where it would have been if the line
         // doesn't have it.
         private int GetIndentSizeFromSqlLine(string sqlLine) =>
-            sqlLine.Contains('[') ? sqlLine.IndexOf('[') : (sqlLine.Length + 1);
+            sqlLine.Contains('[') ? sqlLine.IndexOf('[') : sqlLine.Length + 1;
     }
 }
