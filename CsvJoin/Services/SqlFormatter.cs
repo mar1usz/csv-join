@@ -14,7 +14,7 @@ namespace CsvJoin.Services
         {
             var sqlLines = sql
                 .Split(Environment.NewLine)
-                .Select(sqlLine => sqlLine.Trim());
+                .AsEnumerable();
 
             int indentSizeMax = sqlLines
                 .Select(sqlLine => GetIndentSizeFromSqlLine(sqlLine))
