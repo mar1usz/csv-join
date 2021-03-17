@@ -12,9 +12,7 @@ namespace CsvJoin.Services
             char indentChar,
             bool insertFinalNewLine = false)
         {
-            var sqlLines = sql
-                .Split(Environment.NewLine)
-                .AsEnumerable();
+            var sqlLines = sql.Split(Environment.NewLine).AsEnumerable();
 
             int indentSizeMax = sqlLines
                 .Select(sqlLine => GetIndentSizeFromSqlLine(sqlLine))
