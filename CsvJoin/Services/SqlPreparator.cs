@@ -39,7 +39,6 @@ namespace CsvJoin.Services
             CultureInfo culture)
         {
             string[] tables = GetTableNamesFromFilenames(filenames);
-
             string[][] columns = GetColumnNamesFromFilepaths(
                 directory,
                 filenames,
@@ -48,7 +47,6 @@ namespace CsvJoin.Services
             string[] joinedColumns = columns[0]
                 .Union(columns[1])
                 .ToArray();
-
             string[] commonColumns = columns[0]
                 .Intersect(columns[1])
                 .ToArray();
@@ -110,7 +108,6 @@ namespace CsvJoin.Services
             CultureInfo culture)
         {
             string[] tables = GetTableNamesFromFilenames(filenames);
-
             string[][] columns = GetColumnNamesFromFilepaths(
                 directory,
                 filenames,
@@ -119,7 +116,6 @@ namespace CsvJoin.Services
             string[] joinedColumns = columns[0]
                 .Union(columns[1])
                 .ToArray();
-
             string[] commonColumns = columns[0]
                 .Intersect(columns[1])
                 .ToArray();

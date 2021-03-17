@@ -19,7 +19,6 @@ namespace CsvJoin.Services
             int indentSizeMax = sqlLines
                 .Select(sqlLine => GetIndentSizeFromSqlLine(sqlLine))
                 .Max();
-
             sqlLines = sqlLines
                 .Select(sqlLine => sqlLine.Indent(
                     indentSizeMax - GetIndentSizeFromSqlLine(sqlLine),
