@@ -33,9 +33,7 @@ namespace CsvJoin
             }
 
             string directory = args.First();
-
             string[] filenames = args.Skip(1).Take(2).ToArray();
-
             var culture = CultureInfo.InvariantCulture;
 
             string sql = _preparator.PrepareFullJoinSql(
@@ -49,7 +47,6 @@ namespace CsvJoin
                 Data Source={directory};
                 OLE DB Services=-1;
                 Extended Properties=""text;Excel 16.0;HDR=YES;IMEX=1""";
-
             var output = Console.OpenStandardOutput();
 
             await _executor.ExecuteSqlAsync(

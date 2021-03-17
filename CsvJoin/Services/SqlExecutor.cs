@@ -17,11 +17,9 @@ namespace CsvJoin.Services
             CultureInfo culture)
         {
             using var connection = new OleDbConnection(connectionString);
-
-            connection.Open();
-
             var command = new OleDbCommand(sql, connection);
 
+            connection.Open();
             var reader = await command.ExecuteReaderAsync();
 
             using var writer = new StreamWriter(output);
@@ -42,6 +40,7 @@ namespace CsvJoin.Services
                 }
                 csv.NextRecord();
             }
+            reader.Close();
         }
     }
 }
