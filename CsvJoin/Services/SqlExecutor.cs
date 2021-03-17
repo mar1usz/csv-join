@@ -18,7 +18,6 @@ namespace CsvJoin.Services
         {
             using var connection = new OleDbConnection(connectionString);
             var command = new OleDbCommand(sql, connection);
-
             connection.Open();
             var reader = await command.ExecuteReaderAsync();
 
