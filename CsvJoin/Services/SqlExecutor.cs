@@ -17,7 +17,6 @@ namespace CsvJoin.Services
             CultureInfo culture)
         {
             using var connection = new OleDbConnection(connectionString);
-
             connection.Open();
 
             var command = new OleDbCommand(sql, connection);
@@ -28,7 +27,6 @@ namespace CsvJoin.Services
             using var csv = new CsvWriter(writer, culture);
 
             var cols = reader.GetColumnSchema();
-
             for (int i = 0; i < cols.Count; i++)
             {
                 csv.WriteField(cols[i].ColumnName);
