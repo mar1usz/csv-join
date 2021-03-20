@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CsvJoin.Services
 {
-    public class SqlExecutor : ISqlExecutor
+    public class DefaultSqlExecutor : ISqlExecutor
     {
         public async Task ExecuteSqlAsync(
             string sql,
