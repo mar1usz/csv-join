@@ -23,6 +23,7 @@ namespace CsvJoin.Services
 
             using var writer = new StreamWriter(output);
             using var csv = new CsvWriter(writer, culture);
+
             var cols = reader.GetColumnSchema();
             for (int i = 0; i < cols.Count; i++)
             {
