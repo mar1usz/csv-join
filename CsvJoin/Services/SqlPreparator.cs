@@ -184,9 +184,6 @@ namespace CsvJoin.Services
             filenames.Select(filename => Path.GetFileNameWithoutExtension(
                 filename)).ToArray();
 
-        // This function is wrote like this for convenience.
-        // In most cases you'd use multidimensional arrays
-        // over jagged arrays to prevent wasting space (CA1814).
         private string[][] GetColumnNamesFromFilepaths(
             string directory,
             string[] filenames,
