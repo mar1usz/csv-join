@@ -38,8 +38,8 @@ namespace CsvJoin.Services
             string[] filenames,
             CultureInfo culture)
         {
-            string[] tables = GetTableNamesFromFilenames(filenames);
-            string[][] columns = GetColumnNamesFromFilepaths(
+            string[] tables = GetTableNamesFromFileNames(filenames);
+            string[][] columns = GetColumnNamesFromFilePaths(
                 directory,
                 filenames,
                 culture);
@@ -104,8 +104,8 @@ namespace CsvJoin.Services
             string[] filenames,
             CultureInfo culture)
         {
-            string[] tables = GetTableNamesFromFilenames(filenames);
-            string[][] columns = GetColumnNamesFromFilepaths(
+            string[] tables = GetTableNamesFromFileNames(filenames);
+            string[][] columns = GetColumnNamesFromFilePaths(
                 directory,
                 filenames,
                 culture);
@@ -180,11 +180,11 @@ namespace CsvJoin.Services
             return sql;
         }
 
-        private string[] GetTableNamesFromFilenames(string[] filenames) =>
+        private string[] GetTableNamesFromFileNames(string[] filenames) =>
             filenames.Select(filename => Path.GetFileNameWithoutExtension(
                 filename)).ToArray();
 
-        private string[][] GetColumnNamesFromFilepaths(
+        private string[][] GetColumnNamesFromFilePaths(
             string directory,
             string[] filenames,
             CultureInfo culture) =>
