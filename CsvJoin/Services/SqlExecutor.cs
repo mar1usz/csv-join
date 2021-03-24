@@ -18,11 +18,14 @@ namespace CsvJoin.Services
         {
             using var connection = new OleDbConnection(connectionString);
             var command = new OleDbCommand(sql, connection);
+
             connection.Open();
+
             var reader = await command.ExecuteReaderAsync();
 
             using var writer = new StreamWriter(output);
             using var csv = new CsvWriter(writer, culture);
+
             var cols = reader.GetColumnSchema();
             for (int i = 0; i < cols.Count; i++)
             {
@@ -38,6 +41,7 @@ namespace CsvJoin.Services
                 }
                 csv.NextRecord();
             }
+
             reader.Close();
         }
     }

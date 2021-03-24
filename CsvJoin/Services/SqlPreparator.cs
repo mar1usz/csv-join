@@ -43,6 +43,7 @@ namespace CsvJoin.Services
                 directory,
                 filenames,
                 culture);
+
             string[] joinedColumns = columns[0].Union(columns[1]).ToArray();
             string[] commonColumns = columns[0].Intersect(columns[1])
                 .ToArray();
@@ -109,8 +110,10 @@ namespace CsvJoin.Services
                 directory,
                 filenames,
                 culture);
+
             string[] joinedColumns = columns[0].Union(columns[1]).ToArray();
-            string[] commonColumns = columns[0].Intersect(columns[1]).ToArray();
+            string[] commonColumns = columns[0].Intersect(columns[1])
+                .ToArray();
 
             // SELECT _/‗.[]
             //       ,_/‗.[]
