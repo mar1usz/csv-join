@@ -21,7 +21,7 @@ namespace CsvJoin
             services.AddTransient<ISqlFormatter, SqlFormatter>();
             services.AddTransient<ISqlExecutor, SqlExecutor>();
             services.AddTransient<ISqlSaver, SqlSaver>();
-            services.AddSingleton<Application>();
+            services.AddTransient<Application>();
         }
     }
 }
