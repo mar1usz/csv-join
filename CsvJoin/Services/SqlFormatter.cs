@@ -14,12 +14,12 @@ namespace CsvJoin.Services
         {
             string[] sqlLines = sql.Split(Environment.NewLine);
 
-            int indentSizeMax = sqlLines.Max(sqlLine =>
-                GetIndentSizeFromSqlLine(sqlLine));
+            int indexOfSquareBracketMax = sqlLines.Max(sqlLine =>
+                GetIndexOfSquareBracket(sqlLine));
 
             sqlLines = sqlLines
                 .Select(sqlLine => sqlLine.Indent(
-                    indentSizeMax - GetIndentSizeFromSqlLine(sqlLine),
+                    indexOfSquareBracketMax - GetIndexOfSquareBracket(sqlLine),
                     indentChar))
                 .ToArray();
 
@@ -33,10 +33,7 @@ namespace CsvJoin.Services
             return sql;
         }
 
-        // Gets the index of the first occurence of the '['
-        // character or where it would have been if the
-        // line doesn't have it.
-        private int GetIndentSizeFromSqlLine(string sqlLine) =>
+        private int GetIndexOfSquareBracket(string sqlLine) =>
             sqlLine.Contains('[') ? sqlLine.IndexOf('[') : sqlLine.Length + 1;
     }
 }
