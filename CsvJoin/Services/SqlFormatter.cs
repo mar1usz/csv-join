@@ -16,7 +16,6 @@ namespace CsvJoin.Services
 
             int indexOfSquareBracketMax = sqlLines
                 .Max(sqlLine => GetIndexOfSquareBracket(sqlLine));
-
             sqlLines = sqlLines
                 .Select(sqlLine => sqlLine.Indent(
                     indexOfSquareBracketMax - GetIndexOfSquareBracket(sqlLine),
