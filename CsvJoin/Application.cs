@@ -18,12 +18,12 @@ namespace CsvJoin
             ISqlFormatter formatter,
             ISqlExecutor executor,
             ISqlSaver saver)
-    {
-        _preparator = preparator;
-        _formatter = formatter;
-        _executor = executor;
-        _saver = saver;
-    }
+        {
+            _preparator = preparator;
+            _formatter = formatter;
+            _executor = executor;
+            _saver = saver;
+        }
 
         public async Task RunAsync(string[] args)
         {
