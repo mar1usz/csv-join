@@ -23,6 +23,19 @@ namespace CsvJoin.Services
 
             var reader = await command.ExecuteReaderAsync();
 
+            WriteResultsToCsv(
+                output,
+                culture,
+                reader);
+
+            reader.Close();
+        }
+
+        private void WriteResultsToCsv(
+            Stream output,
+            CultureInfo culture,
+            DbDataReader reader)
+        {
             using var writer = new StreamWriter(output);
             using var csv = new CsvWriter(writer, culture);
 
@@ -41,8 +54,6 @@ namespace CsvJoin.Services
                 }
                 csv.NextRecord();
             }
-
-            reader.Close();
         }
     }
 }
