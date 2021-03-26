@@ -33,7 +33,10 @@ namespace CsvJoin.Services
             return sql;
         }
 
-        private int GetIndexOfSquareBracket(string sqlLine) =>
-            sqlLine.Contains('[') ? sqlLine.IndexOf('[') : sqlLine.Length + 1;
+        private int GetIndexOfSquareBracket(string sqlLine)
+        {
+            return sqlLine.Contains('[') ? sqlLine.IndexOf('[')
+                : sqlLine.Length + 1;
+        }
     }
 }
