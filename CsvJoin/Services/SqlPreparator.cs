@@ -11,14 +11,14 @@ namespace CsvJoin.Services
     {
         public string PrepareFullJoinSql(
             string directory,
-            string[] filenames,
+            string[] fileNames,
             CultureInfo culture)
         {
             string sql = "";
 
             sql += PrepareLeftJoinSql(
                 directory,
-                filenames,
+                fileNames,
                 culture);
 
             sql += Environment.NewLine;
@@ -27,7 +27,7 @@ namespace CsvJoin.Services
             sql += Environment.NewLine;
             sql += PrepareRightAntiJoinSql(
                 directory,
-                filenames,
+                fileNames,
                 culture);
 
             return sql;
@@ -35,13 +35,13 @@ namespace CsvJoin.Services
 
         public string PrepareLeftJoinSql(
             string directory,
-            string[] filenames,
+            string[] fileNames,
             CultureInfo culture)
         {
-            string[] tables = GetTableNamesFromFileNames(filenames);
+            string[] tables = GetTableNamesFromFileNames(fileNames);
             string[][] columns = GetColumnNamesFromFilePaths(
                 directory,
-                filenames,
+                fileNames,
                 culture);
 
             string[] joinedColumns = columns[0].Union(columns[1]).ToArray();
@@ -70,7 +70,7 @@ namespace CsvJoin.Services
 
             sql += Environment.NewLine;
             sql += string.Format(@"FROM [{0}] AS [{1}]",
-                filenames[0],
+                fileNames[0],
                 tables[0]);
 
             // LEFT JOIN ‗ ON _.[] = ‗.[]
@@ -78,7 +78,7 @@ namespace CsvJoin.Services
             //            AND ...
             sql += Environment.NewLine;
             sql += string.Format(@"LEFT JOIN [{0}] AS [{1}]",
-                filenames[1],
+                fileNames[1],
                 tables[1]);
 
             string commonColumnsFirst = commonColumns.First();
@@ -102,13 +102,13 @@ namespace CsvJoin.Services
 
         public string PrepareRightAntiJoinSql(
             string directory,
-            string[] filenames,
+            string[] fileNames,
             CultureInfo culture)
         {
-            string[] tables = GetTableNamesFromFileNames(filenames);
+            string[] tables = GetTableNamesFromFileNames(fileNames);
             string[][] columns = GetColumnNamesFromFilePaths(
                 directory,
-                filenames,
+                fileNames,
                 culture);
 
             string[] joinedColumns = columns[0].Union(columns[1]).ToArray();
@@ -137,7 +137,7 @@ namespace CsvJoin.Services
 
             sql += Environment.NewLine;
             sql += string.Format(@"FROM [{0}] AS [{1}]",
-                filenames[0],
+                fileNames[0],
                 tables[0]);
 
             // RIGHT JOIN _ ON _.[] = ‗.[]
@@ -145,7 +145,7 @@ namespace CsvJoin.Services
             //             AND ...
             sql += Environment.NewLine;
             sql += string.Format(@"RIGHT JOIN [{0}] AS [{1}]",
-                filenames[1],
+                fileNames[1],
                 tables[1]);
 
             string commonColumnsFirst = commonColumns.First();
@@ -183,15 +183,15 @@ namespace CsvJoin.Services
             return sql;
         }
 
-        private string[] GetTableNamesFromFileNames(string[] filenames) =>
-            filenames.Select(filename => Path.GetFileNameWithoutExtension(
-                filename)).ToArray();
+        private string[] GetTableNamesFromFileNames(string[] fileNames) =>
+            fileNames.Select(fileName => Path.GetFileNameWithoutExtension(
+                fileName)).ToArray();
 
         private string[][] GetColumnNamesFromFilePaths(
             string directory,
-            string[] filenames,
+            string[] fileNames,
             CultureInfo culture) =>
-                filenames.Select(filename => CsvUtilities.ReadHeader(
-                    directory, filename, culture)).ToArray();
+                fileNames.Select(fileName => CsvUtilities.ReadHeader(
+                    directory, fileName, culture)).ToArray();
     }
 }

@@ -8,10 +8,10 @@ namespace CsvJoin.Utilities
     {
         public static string[] ReadHeader(
             string directory,
-            string filename,
+            string fileName,
             CultureInfo culture)
         {
-            using var reader = new StreamReader($@"{directory}\{filename}");
+            using var reader = new StreamReader($@"{directory}\{fileName}");
             using var csv = new CsvReader(reader, culture);
 
             csv.Read();

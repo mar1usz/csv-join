@@ -6,7 +6,7 @@ namespace CsvJoin.Services
 {
     public class SqlSaver : ISqlSaver
     {
-        public async Task SaveSqlAsync(string sql, string filepath) =>
-            await File.WriteAllTextAsync(filepath, sql);
+        public async Task SaveSqlAsync(string sql, string filePath) =>
+            await File.WriteAllTextAsync(filePath, sql);
     }
 }

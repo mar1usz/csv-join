@@ -33,12 +33,12 @@ namespace CsvJoin
             }
 
             string directory = args.First();
-            string[] filenames = args.Skip(1).Take(2).ToArray();
+            string[] fileNames = args.Skip(1).Take(2).ToArray();
             var culture = CultureInfo.InvariantCulture;
 
             string sql = _preparator.PrepareFullJoinSql(
                 directory,
-                filenames,
+                fileNames,
                 culture);
 
             sql = _formatter.FormatSql(sql, indentChar: ' ');
@@ -55,7 +55,7 @@ namespace CsvJoin
                 output,
                 culture);
 
-            await _saver.SaveSqlAsync(sql, filepath: @"SQLQuery.sql");
+            await _saver.SaveSqlAsync(sql, filePath: @"SQLQuery.sql");
         }
     }
 }
