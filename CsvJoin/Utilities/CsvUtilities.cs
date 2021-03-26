@@ -11,7 +11,7 @@ namespace CsvJoin.Utilities
             string fileName,
             CultureInfo culture)
         {
-            using var reader = new StreamReader($@"{directory}\{fileName}");
+            using var reader = new StreamReader(@$"{directory}\{fileName}");
             using var csv = new CsvReader(reader, culture);
 
             csv.Read();
