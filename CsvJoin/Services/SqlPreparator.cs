@@ -49,7 +49,6 @@ namespace CsvJoin.Services
                 .ToArray();
 
             // SELECT _/‗.[]
-            //       ,_/‗.[]
             //       ,...
             //   FROM _
             string sql = "";
@@ -74,7 +73,6 @@ namespace CsvJoin.Services
                 tables[0]);
 
             // LEFT JOIN ‗ ON _.[] = ‗.[]
-            //            AND _.[] = ‗.[]
             //            AND ...
             sql += Environment.NewLine;
             sql += string.Format(@"LEFT JOIN [{0}] AS [{1}]",
@@ -116,7 +114,6 @@ namespace CsvJoin.Services
                 .ToArray();
 
             // SELECT _/‗.[]
-            //       ,_/‗.[]
             //       ,...
             //   FROM _
             string sql = "";
@@ -141,7 +138,6 @@ namespace CsvJoin.Services
                 tables[0]);
 
             // RIGHT JOIN _ ON _.[] = ‗.[]
-            //             AND _.[] = ‗.[]
             //             AND ...
             sql += Environment.NewLine;
             sql += string.Format(@"RIGHT JOIN [{0}] AS [{1}]",
@@ -164,8 +160,7 @@ namespace CsvJoin.Services
                     commonColumn);
             }
 
-            // WHERE _.[] IS NULL 
-            //   AND _.[] IS NULL
+            // WHERE _.[] IS NULL
             //   AND ...
             sql += Environment.NewLine;
             sql += string.Format(@"WHERE [{0}].[{1}] IS NULL",
