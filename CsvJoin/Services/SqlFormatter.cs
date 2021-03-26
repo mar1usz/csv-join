@@ -19,8 +19,7 @@ namespace CsvJoin.Services
 
             sqlLines = sqlLines.Select(sqlLine => sqlLine.Indent(
                     indexOfSquareBracketMax - GetIndexOfSquareBracket(sqlLine),
-                    indentChar))
-                .ToArray();
+                    indentChar)).ToArray();
 
             sql = string.Join(Environment.NewLine, sqlLines);
 
