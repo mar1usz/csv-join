@@ -14,14 +14,12 @@ namespace CsvJoin.Services
         {
             string[] sqlLines = sql.Split(Environment.NewLine);
 
-            int indexOfSquareBracketMax = sqlLines
-                .Max(sqlLine => GetIndexOfSquareBracket(sqlLine));
+            int indexOfSquareBracketMax = sqlLines.Max(
+                sqlLine => GetIndexOfSquareBracket(sqlLine));
 
-            sqlLines = sqlLines
-                .Select(sqlLine => sqlLine.Indent(
-                    indexOfSquareBracketMax - GetIndexOfSquareBracket(sqlLine),
-                    indentChar))
-                .ToArray();
+            sqlLines = sqlLines.Select(sqlLine => sqlLine.Indent(
+                indexOfSquareBracketMax - GetIndexOfSquareBracket(sqlLine),
+                indentChar)).ToArray();
 
             sql = string.Join(Environment.NewLine, sqlLines);
 
