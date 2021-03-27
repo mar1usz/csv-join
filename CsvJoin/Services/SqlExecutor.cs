@@ -36,10 +36,10 @@ namespace CsvJoin.Services
             using var writer = new StreamWriter(output);
             using var csv = new CsvWriter(writer, culture);
 
-            var cols = reader.GetColumnSchema();
-            for (int i = 0; i < cols.Count; i++)
+            var columns = reader.GetColumnSchema();
+            for (int i = 0; i < columns.Count; i++)
             {
-                csv.WriteField(cols[i].ColumnName);
+                csv.WriteField(columns[i].ColumnName);
             }
             csv.NextRecord();
 
