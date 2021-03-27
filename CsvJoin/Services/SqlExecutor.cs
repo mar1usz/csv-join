@@ -23,15 +23,15 @@ namespace CsvJoin.Services
             using var reader = await command.ExecuteReaderAsync();
 
             WriteResultsToCsv(
+                reader,
                 output,
-                culture,
-                reader);
+                culture);
         }
 
         private void WriteResultsToCsv(
+            DbDataReader reader,
             Stream output,
-            CultureInfo culture,
-            DbDataReader reader)
+            CultureInfo culture)
         {
             using var writer = new StreamWriter(output);
             using var csv = new CsvWriter(writer, culture);

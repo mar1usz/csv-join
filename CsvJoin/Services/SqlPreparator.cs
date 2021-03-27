@@ -56,7 +56,7 @@ namespace CsvJoin.Services
             string joinedColumnsFirst = joinedColumns.First();
             sql += string.Format("SELECT [{0}].[{1}]",
                 columns[0].Contains(joinedColumnsFirst) ? tables[0]
-                : tables[1],
+                    : tables[1],
                 joinedColumnsFirst);
 
             foreach (string joinedColumn in joinedColumns.Skip(1))
@@ -121,7 +121,7 @@ namespace CsvJoin.Services
             string joinedColumnsFirst = joinedColumns.First();
             sql += string.Format("SELECT [{0}].[{1}]",
                 columns[1].Contains(joinedColumnsFirst) ? tables[1]
-                : tables[0],
+                    : tables[0],
                 joinedColumnsFirst);
 
             foreach (string joinedColumn in joinedColumns.Skip(1))
