@@ -48,9 +48,6 @@ namespace CsvJoin.Services
             string[] commonColumns = columns[0].Intersect(columns[1])
                 .ToArray();
 
-            // SELECT _/‗.[]
-            //       ,...
-            //   FROM _
             string sql = "";
 
             string joinedColumnsFirst = joinedColumns.First();
@@ -72,8 +69,6 @@ namespace CsvJoin.Services
                 fileNames[0],
                 tables[0]);
 
-            // LEFT JOIN ‗ ON _.[] = ‗.[]
-            //            AND ...
             sql += Environment.NewLine;
             sql += string.Format("LEFT JOIN [{0}] AS [{1}]",
                 fileNames[1],
@@ -113,9 +108,6 @@ namespace CsvJoin.Services
             string[] commonColumns = columns[0].Intersect(columns[1])
                 .ToArray();
 
-            // SELECT _/‗.[]
-            //       ,...
-            //   FROM _
             string sql = "";
 
             string joinedColumnsFirst = joinedColumns.First();
@@ -137,8 +129,6 @@ namespace CsvJoin.Services
                 fileNames[0],
                 tables[0]);
 
-            // RIGHT JOIN _ ON _.[] = ‗.[]
-            //             AND ...
             sql += Environment.NewLine;
             sql += string.Format("RIGHT JOIN [{0}] AS [{1}]",
                 fileNames[1],
@@ -160,8 +150,6 @@ namespace CsvJoin.Services
                     commonColumn);
             }
 
-            // WHERE _.[] IS NULL
-            //   AND ...
             sql += Environment.NewLine;
             sql += string.Format("WHERE [{0}].[{1}] IS NULL",
                 tables[0],
