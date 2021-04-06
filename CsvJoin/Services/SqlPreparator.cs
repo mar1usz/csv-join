@@ -4,6 +4,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace CsvJoin.Services
 {
@@ -14,23 +15,23 @@ namespace CsvJoin.Services
             string[] fileNames,
             CultureInfo culture)
         {
-            string sql = "";
+            var sql = new StringBuilder();
 
-            sql += PrepareLeftJoinSql(
+            sql.Append(PrepareLeftJoinSql(
                 directory,
                 fileNames,
-                culture);
+                culture));
 
-            sql += Environment.NewLine;
-            sql += "UNION";
+            sql.Append(Environment.NewLine);
+            sql.Append("UNION");
 
-            sql += Environment.NewLine;
-            sql += PrepareRightAntiJoinSql(
+            sql.Append(Environment.NewLine);
+            sql.Append(PrepareRightAntiJoinSql(
                 directory,
                 fileNames,
-                culture);
+                culture));
 
-            return sql;
+            return sql.ToString();
         }
 
         public string PrepareLeftJoinSql(
@@ -48,49 +49,49 @@ namespace CsvJoin.Services
             string[] commonColumns = columns[0].Intersect(columns[1])
                 .ToArray();
 
-            string sql = "";
+            var sql = new StringBuilder();
 
             string joinedColumnsFirst = joinedColumns.First();
-            sql += string.Format("SELECT [{0}].[{1}]",
+            sql.AppendFormat("SELECT [{0}].[{1}]",
                 columns[0].Contains(joinedColumnsFirst) ? tables[0]
-                    : tables[1],
+                : tables[1],
                 joinedColumnsFirst);
 
             foreach (string joinedColumn in joinedColumns.Skip(1))
             {
-                sql += Environment.NewLine;
-                sql += string.Format(",[{0}].[{1}]",
+                sql.Append(Environment.NewLine);
+                sql.AppendFormat(",[{0}].[{1}]",
                     columns[0].Contains(joinedColumn) ? tables[0] : tables[1],
                     joinedColumn);
             }
 
-            sql += Environment.NewLine;
-            sql += string.Format("FROM [{0}] AS [{1}]",
+            sql.Append(Environment.NewLine);
+            sql.AppendFormat("FROM [{0}] AS [{1}]",
                 fileNames[0],
                 tables[0]);
 
-            sql += Environment.NewLine;
-            sql += string.Format("LEFT JOIN [{0}] AS [{1}]",
+            sql.Append(Environment.NewLine);
+            sql.AppendFormat("LEFT JOIN [{0}] AS [{1}]",
                 fileNames[1],
                 tables[1]);
 
             string commonColumnsFirst = commonColumns.First();
-            sql += Environment.NewLine;
-            sql += string.Format("ON [{0}].[{2}] = [{1}].[{2}]",
+            sql.Append(Environment.NewLine);
+            sql.AppendFormat("ON [{0}].[{2}] = [{1}].[{2}]",
                 tables[0],
                 tables[1],
                 commonColumnsFirst);
 
             foreach (string commonColumn in commonColumns.Skip(1))
             {
-                sql += Environment.NewLine;
-                sql += string.Format("AND [{0}].[{2}] = [{1}].[{2}]",
+                sql.Append(Environment.NewLine);
+                sql.AppendFormat("AND [{0}].[{2}] = [{1}].[{2}]",
                     tables[0],
                     tables[1],
                     commonColumn);
             }
 
-            return sql;
+            return sql.ToString();
         }
 
         public string PrepareRightAntiJoinSql(
@@ -108,62 +109,62 @@ namespace CsvJoin.Services
             string[] commonColumns = columns[0].Intersect(columns[1])
                 .ToArray();
 
-            string sql = "";
+            var sql = new StringBuilder();
 
             string joinedColumnsFirst = joinedColumns.First();
-            sql += string.Format("SELECT [{0}].[{1}]",
+            sql.AppendFormat("SELECT [{0}].[{1}]",
                 columns[1].Contains(joinedColumnsFirst) ? tables[1]
                     : tables[0],
                 joinedColumnsFirst);
 
             foreach (string joinedColumn in joinedColumns.Skip(1))
             {
-                sql += Environment.NewLine;
-                sql += string.Format(",[{0}].[{1}]",
+                sql.Append(Environment.NewLine);
+                sql.AppendFormat(",[{0}].[{1}]",
                     columns[1].Contains(joinedColumn) ? tables[1] : tables[0],
                     joinedColumn);
             }
 
-            sql += Environment.NewLine;
-            sql += string.Format("FROM [{0}] AS [{1}]",
+            sql.Append(Environment.NewLine);
+            sql.AppendFormat("FROM [{0}] AS [{1}]",
                 fileNames[0],
                 tables[0]);
 
-            sql += Environment.NewLine;
-            sql += string.Format("RIGHT JOIN [{0}] AS [{1}]",
+            sql.Append(Environment.NewLine);
+            sql.AppendFormat("RIGHT JOIN [{0}] AS [{1}]",
                 fileNames[1],
                 tables[1]);
 
             string commonColumnsFirst = commonColumns.First();
-            sql += Environment.NewLine;
-            sql += string.Format("ON [{0}].[{2}] = [{1}].[{2}]",
+            sql.Append(Environment.NewLine);
+            sql.AppendFormat("ON [{0}].[{2}] = [{1}].[{2}]",
                 tables[0],
                 tables[1],
                 commonColumnsFirst);
 
             foreach (string commonColumn in commonColumns.Skip(1))
             {
-                sql += Environment.NewLine;
-                sql += string.Format("AND [{0}].[{2}] = [{1}].[{2}]",
+                sql.Append(Environment.NewLine);
+                sql.AppendFormat("AND [{0}].[{2}] = [{1}].[{2}]",
                     tables[0],
                     tables[1],
                     commonColumn);
             }
 
-            sql += Environment.NewLine;
-            sql += string.Format("WHERE [{0}].[{1}] IS NULL",
+            sql.Append(Environment.NewLine);
+            sql.AppendFormat("WHERE [{0}].[{1}] IS NULL",
                 tables[0],
                 commonColumnsFirst);
 
             foreach (string commonColumn in commonColumns.Skip(1))
             {
-                sql += Environment.NewLine;
-                sql += string.Format("AND [{0}].[{1}] IS NULL",
+                sql.Append(Environment.NewLine);
+                sql.AppendFormat("AND [{0}].[{1}] IS NULL",
                     tables[0],
                     commonColumn);
             }
 
-            return sql;
+            return sql.ToString();
         }
 
         private string[] GetTableNamesFromFileNames(string[] fileNames) =>
