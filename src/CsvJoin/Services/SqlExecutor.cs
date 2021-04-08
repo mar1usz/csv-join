@@ -20,6 +20,7 @@ namespace CsvJoin.Services
             var command = new OleDbCommand(sql, connection);
 
             connection.Open();
+
             using var reader = await command.ExecuteReaderAsync();
 
             WriteResultsToCsv(
