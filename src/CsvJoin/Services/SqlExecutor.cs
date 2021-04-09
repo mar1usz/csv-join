@@ -17,6 +17,7 @@ namespace CsvJoin.Services
             CultureInfo culture)
         {
             using var connection = new OleDbConnection(connectionString);
+
             var command = new OleDbCommand(sql, connection);
 
             connection.Open();
