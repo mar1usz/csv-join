@@ -15,7 +15,8 @@ namespace CsvJoin
             
             var serviceProvider = services.BuildServiceProvider();
             
-            await serviceProvider.GetRequiredService<Application>().RunAsync(args);
+            await serviceProvider.GetRequiredService<Application>()
+                .RunAsync(args);
         }
 
         private static void ConfigureServices(IServiceCollection services)
@@ -24,6 +25,7 @@ namespace CsvJoin
             services.AddTransient<ISqlFormatter, SqlFormatter>();
             services.AddTransient<ISqlExecutor, SqlExecutor>();
             services.AddTransient<ISqlSaver, SqlSaver>();
+
             services.AddTransient<Application>();
         }
     }
