@@ -10,15 +10,12 @@ namespace CsvJoin
         public static async Task Main(string[] args)
         {
             var services = new ServiceCollection();
-
+            
             ConfigureServices(services);
-
-            ConfigureApplicationService(services);
-
+            
             var serviceProvider = services.BuildServiceProvider();
-
-            await serviceProvider.GetRequiredService<Application>()
-                .RunAsync(args);
+            
+            await serviceProvider.GetRequiredService<Application>().RunAsync(args);
         }
 
         private static void ConfigureServices(IServiceCollection services)
@@ -27,11 +24,6 @@ namespace CsvJoin
             services.AddTransient<ISqlFormatter, SqlFormatter>();
             services.AddTransient<ISqlExecutor, SqlExecutor>();
             services.AddTransient<ISqlSaver, SqlSaver>();
-        }
-
-        private static void ConfigureApplicationService(
-            IServiceCollection services)
-        {
             services.AddTransient<Application>();
         }
     }
