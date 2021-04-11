@@ -1,11 +1,11 @@
 # CSV Join
-A command-line tool for performing full outer joins on CSV files in C# .NET Core using SQL:
+A command-line tool for performing full outer joins on CSV files in C# .NET Core using Access SQL:
 ```
 CsvJoin.exe Data sales.csv new_sales.csv > joined_sales.csv
 ```
 
 ## Features:
-- Execute SQL against CSV files
+- Execute Access SQL against CSV files
 - Save results to CSV
 - Save auto-generated SQL
 
