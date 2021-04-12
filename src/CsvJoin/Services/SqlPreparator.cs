@@ -1,7 +1,6 @@
 ﻿using CsvJoin.Services.Abstractions;
 using CsvJoin.Utilities;
 using System;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,40 +9,26 @@ namespace CsvJoin.Services
 {
     public class SqlPreparator : ISqlPreparator
     {
-        public string PrepareFullJoinSql(
-            string directory,
-            string[] fileNames,
-            CultureInfo culture)
+        public string PrepareFullJoinSql(string directory, string[] fileNames)
         {
             var sql = new StringBuilder();
 
-            sql.Append(PrepareLeftJoinSql(
-                directory,
-                fileNames,
-                culture));
+            sql.Append(PrepareLeftJoinSql(directory, fileNames));
 
             sql.Append(Environment.NewLine);
             sql.Append("UNION");
 
             sql.Append(Environment.NewLine);
-            sql.Append(PrepareRightAntiJoinSql(
-                directory,
-                fileNames,
-                culture));
+            sql.Append(PrepareRightAntiJoinSql(directory, fileNames));
 
             return sql.ToString();
         }
 
-        public string PrepareLeftJoinSql(
-            string directory,
-            string[] fileNames,
-            CultureInfo culture)
+        public string PrepareLeftJoinSql(string directory,string[] fileNames)
         {
             string[] tables = GetTableNamesFromFileNames(fileNames);
             string[][] columns = GetColumnNamesFromFilePaths(
-                directory,
-                fileNames,
-                culture);
+                directory, fileNames);
 
             string[] joinedColumns = columns[0].Union(columns[1]).ToArray();
             string[] commonColumns = columns[0].Intersect(columns[1])
@@ -95,15 +80,11 @@ namespace CsvJoin.Services
         }
 
         public string PrepareRightAntiJoinSql(
-            string directory,
-            string[] fileNames,
-            CultureInfo culture)
+            string directory,string[] fileNames)
         {
             string[] tables = GetTableNamesFromFileNames(fileNames);
             string[][] columns = GetColumnNamesFromFilePaths(
-                directory,
-                fileNames,
-                culture);
+                directory, fileNames);
 
             string[] joinedColumns = columns[0].Union(columns[1]).ToArray();
             string[] commonColumns = columns[0].Intersect(columns[1])
@@ -173,9 +154,8 @@ namespace CsvJoin.Services
 
         private string[][] GetColumnNamesFromFilePaths(
             string directory,
-            string[] fileNames,
-            CultureInfo culture) =>
+            string[] fileNames) =>
                 fileNames.Select(fileName => CsvUtilities.ReadHeader(
-                    directory, fileName, culture)).ToArray();
+                    directory, fileName)).ToArray();
     }
 }

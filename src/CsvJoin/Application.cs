@@ -1,6 +1,5 @@
 ﻿using CsvJoin.Services.Abstractions;
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,12 +33,8 @@ namespace CsvJoin
 
             string directory = args.First();
             string[] fileNames = args.Skip(1).Take(2).ToArray();
-            var culture = CultureInfo.InvariantCulture;
 
-            string sql = _preparator.PrepareFullJoinSql(
-                directory,
-                fileNames,
-                culture);
+            string sql = _preparator.PrepareFullJoinSql(directory, fileNames);
 
             sql = _formatter.FormatSql(sql, indentChar: ' ');
 
@@ -52,8 +47,7 @@ namespace CsvJoin
             await _executor.ExecuteSqlAsync(
                 sql,
                 connectionString,
-                output,
-                culture);
+                output);
 
             await _saver.SaveSqlAsync(sql, filePath: "SQLQuery.sql");
         }

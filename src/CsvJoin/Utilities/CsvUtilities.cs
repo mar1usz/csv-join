@@ -1,23 +1,15 @@
-﻿using CsvHelper;
-using System.Globalization;
+﻿using ServiceStack.Text;
 using System.IO;
+using System.Linq;
 
 namespace CsvJoin.Utilities
 {
     public static class CsvUtilities
     {
-        public static string[] ReadHeader(
-            string directory,
-            string fileName,
-            CultureInfo culture)
+        public static string[] ReadHeader(string directory, string fileName)
         {
-            using var reader = new StreamReader(@$"{directory}\{fileName}");
-            using var csv = new CsvReader(reader, culture);
-
-            csv.Read();
-            csv.ReadHeader();
-
-            return csv.HeaderRecord;
+            var lines = File.ReadLines(@$"{directory}\{fileName}");
+            return CsvReader.ParseFields(lines.First()).ToArray();
         }
     }
 }

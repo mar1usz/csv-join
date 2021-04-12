@@ -17,4 +17,4 @@ CsvJoin.exe Data sales.csv new_sales.csv > joined_sales.csv
 ## Credits:
 - Microsoft.Extensions.DependencyInjection by https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection (MIT license)
 - System.Data.OleDb by https://www.nuget.org/packages/System.Data.OleDb (MIT license)
-- CsvHelper by https://www.nuget.org/packages/CsvHelper (MS-PL or Apache-2.0 license)
+- ServiceStack.Text by https://www.nuget.org/packages/ServiceStack.Text ([license](https://github.com/ServiceStack/ServiceStack.Text/blob/master/license.txt))

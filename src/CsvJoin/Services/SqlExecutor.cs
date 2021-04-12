@@ -1,9 +1,10 @@
-﻿using CsvHelper;
-using CsvJoin.Services.Abstractions;
+﻿using CsvJoin.Services.Abstractions;
+using ServiceStack.Text;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.OleDb;
-using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CsvJoin.Services
@@ -13,8 +14,7 @@ namespace CsvJoin.Services
         public async Task ExecuteSqlAsync(
             string sql,
             string connectionString,
-            Stream output,
-            CultureInfo culture)
+            Stream output)
         {
             using var connection = new OleDbConnection(connectionString);
 
@@ -24,34 +24,27 @@ namespace CsvJoin.Services
 
             using var reader = await command.ExecuteReaderAsync();
 
-            WriteResultsToCsv(
-                reader,
-                output,
-                culture);
+            WriteResultsToCsv(reader, output);
         }
 
-        private void WriteResultsToCsv(
-            DbDataReader reader,
-            Stream output,
-            CultureInfo culture)
+        private void WriteResultsToCsv(DbDataReader reader, Stream output)
         {
             using var writer = new StreamWriter(output);
-            using var csv = new CsvWriter(writer, culture);
 
-            var columns = reader.GetColumnSchema();
-            for (int i = 0; i < columns.Count; i++)
-            {
-                csv.WriteField(columns[i].ColumnName);
-            }
-            csv.NextRecord();
+            var header = reader.GetColumnSchema().Select(c => c.ColumnName);
+
+            CsvSerializer.SerializeToStream(header, output);
 
             while (reader.Read())
             {
+                var record = new List<string> { };
+
                 for (int i = 0; i < reader.FieldCount; i++)
                 {
-                    csv.WriteField(reader[i]);
+                    record.Add(reader[i].ToString());
                 }
-                csv.NextRecord();
+
+                CsvSerializer.SerializeToStream(record, output);
             }
         }
     }
