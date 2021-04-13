@@ -6,7 +6,7 @@ CsvJoin.exe Data sales.csv new_sales.csv > joined_sales.csv
 
 ## Features:
 - Execute Access SQL against CSV files
-- Save results to CSV
+- Write results to CSV
 - Save auto-generated SQL
 
 ## Prerequisites:
