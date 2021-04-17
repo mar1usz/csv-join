@@ -1,6 +1,7 @@
 ﻿using CsvJoin.Extensions;
 using CsvJoin.Services.Abstractions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CsvJoin.Services
@@ -12,30 +13,28 @@ namespace CsvJoin.Services
             char indentChar,
             bool insertFinalNewLine = false)
         {
-            sql = IndentBySquareBracket(sql, indentChar);
+            var sqlLines = sql.Split(Environment.NewLine).AsEnumerable();
+
+            IndentLinesBySquareBracket(sqlLines, indentChar);
 
             if (insertFinalNewLine)
             {
-                sql += Environment.NewLine;
+                sqlLines = sqlLines.Append(string.Empty);
             }
 
-            return sql;
+            return string.Join(Environment.NewLine, sqlLines);
         }
 
-        private string IndentBySquareBracket(string sql, char indentChar)
+        private void IndentLinesBySquareBracket(IEnumerable<string> sqlLines,
+            char indentChar)
         {
-            string[] sqlLines = sql.Split(Environment.NewLine);
-
             int indexOfSquareBracketMax = sqlLines.Max(
                 sqlLine => GetIndexOfSquareBracket(sqlLine));
 
             sqlLines = sqlLines
                 .Select(sqlLine => sqlLine.Indent(
                     indexOfSquareBracketMax - GetIndexOfSquareBracket(sqlLine),
-                    indentChar))
-                .ToArray();
-
-            return string.Join(Environment.NewLine, sqlLines);
+                    indentChar));
         }
 
         private int GetIndexOfSquareBracket(string sqlLine)
