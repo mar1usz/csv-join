@@ -26,22 +26,31 @@ namespace CsvJoin.Services
 
         private void WriteResultsToCsv(DbDataReader reader, Stream output)
         {
-            var header = reader
-                .GetColumnSchema()
-                .Select(c => c.ColumnName);
+            var header = GetHeader(reader);
             CsvSerializer.SerializeToStream(header, output);
 
-            var record = new List<string> { };
             while (reader.Read())
             {
-                for (int i = 0; i < reader.FieldCount; i++)
-                {
-                    record.Add(reader[i].ToString());
-                }
-
+                var record = GetRecord(reader);
                 CsvSerializer.SerializeToStream(record, output);
-                record.Clear();
             }
+        }
+
+        private static IEnumerable<string> GetHeader(DbDataReader reader)
+        {
+            return reader
+                .GetColumnSchema()
+                .Select(c => c.ColumnName);
+        }
+
+        private IEnumerable<string> GetRecord(DbDataReader reader)
+        {
+            var record = new List<string> { };
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                record.Add(reader[i].ToString());
+            }
+            return record;
         }
     }
 }
