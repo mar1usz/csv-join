@@ -12,6 +12,18 @@ namespace CsvJoin.Services
             char indentChar,
             bool insertFinalNewLine = false)
         {
+            sql = Indent(sql, indentChar);
+
+            if (insertFinalNewLine)
+            {
+                sql += Environment.NewLine;
+            }
+
+            return sql;
+        }
+
+        private string Indent(string sql, char indentChar)
+        {
             string[] sqlLines = sql.Split(Environment.NewLine);
 
             int indexOfSquareBracketMax = sqlLines.Max(
@@ -23,14 +35,7 @@ namespace CsvJoin.Services
                     indentChar))
                 .ToArray();
 
-            sql = string.Join(Environment.NewLine, sqlLines);
-
-            if (insertFinalNewLine)
-            {
-                sql += Environment.NewLine;
-            }
-
-            return sql;
+            return string.Join(Environment.NewLine, sqlLines);
         }
 
         private int GetIndexOfSquareBracket(string sqlLine)
