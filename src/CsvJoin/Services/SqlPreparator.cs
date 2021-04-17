@@ -24,7 +24,7 @@ namespace CsvJoin.Services
             return sql.ToString();
         }
 
-        public string PrepareLeftJoinSql(string directory,string[] fileNames)
+        public string PrepareLeftJoinSql(string directory, string[] fileNames)
         {
             string[] tables = GetTableNamesFromFileNames(fileNames);
             string[][] columns = GetColumnNamesFromFilePaths(
@@ -80,7 +80,7 @@ namespace CsvJoin.Services
         }
 
         public string PrepareRightAntiJoinSql(
-            string directory,string[] fileNames)
+            string directory, string[] fileNames)
         {
             string[] tables = GetTableNamesFromFileNames(fileNames);
             string[][] columns = GetColumnNamesFromFilePaths(
@@ -148,14 +148,21 @@ namespace CsvJoin.Services
             return sql.ToString();
         }
 
-        private string[] GetTableNamesFromFileNames(string[] fileNames) =>
-            fileNames.Select(fileName => Path.GetFileNameWithoutExtension(
-                fileName)).ToArray();
+        private string[] GetTableNamesFromFileNames(string[] fileNames)
+        {
+            return fileNames
+                .Select(fileName => Path.GetFileNameWithoutExtension(fileName))
+                .ToArray();
+        }
 
         private string[][] GetColumnNamesFromFilePaths(
             string directory,
-            string[] fileNames) =>
-                fileNames.Select(fileName => CsvUtilities.ReadHeader(
-                    directory, fileName)).ToArray();
+            string[] fileNames)
+        {
+            return fileNames
+                .Select(fileName => CsvUtilities.ReadHeader(
+                    directory, fileName))
+                .ToArray();
+        }
     }
 }

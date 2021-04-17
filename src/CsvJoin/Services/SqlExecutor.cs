@@ -17,13 +17,10 @@ namespace CsvJoin.Services
             Stream output)
         {
             using var connection = new OleDbConnection(connectionString);
-
             var command = new OleDbCommand(sql, connection);
-
             connection.Open();
 
             using var reader = await command.ExecuteReaderAsync();
-
             WriteResultsToCsv(reader, output);
         }
 
@@ -32,11 +29,9 @@ namespace CsvJoin.Services
             var header = reader
                 .GetColumnSchema()
                 .Select(c => c.ColumnName);
-
             CsvSerializer.SerializeToStream(header, output);
 
             var record = new List<string> { };
-
             while (reader.Read())
             {
                 for (int i = 0; i < reader.FieldCount; i++)
@@ -45,7 +40,6 @@ namespace CsvJoin.Services
                 }
 
                 CsvSerializer.SerializeToStream(record, output);
-
                 record.Clear();
             }
         }
