@@ -12,7 +12,7 @@ namespace CsvJoin.Services
             char indentChar,
             bool insertFinalNewLine = false)
         {
-            sql = Indent(sql, indentChar);
+            sql = IndentBySquareBracket(sql, indentChar);
 
             if (insertFinalNewLine)
             {
@@ -22,7 +22,7 @@ namespace CsvJoin.Services
             return sql;
         }
 
-        private string Indent(string sql, char indentChar)
+        private string IndentBySquareBracket(string sql, char indentChar)
         {
             string[] sqlLines = sql.Split(Environment.NewLine);
 
