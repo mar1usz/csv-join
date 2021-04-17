@@ -1,4 +1,5 @@
 ﻿using ServiceStack.Text;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -8,8 +9,10 @@ namespace CsvJoin.Utilities
     {
         public static string[] ReadHeader(string directory, string fileName)
         {
-            string path = string.Join(Path.DirectorySeparatorChar,
-                directory, fileName);
+            string path = Path.Combine(
+                Environment.CurrentDirectory,
+                directory,
+                fileName);
 
             string header = File.ReadLines(path).First();
             return CsvReader.ParseFields(header).ToArray();
