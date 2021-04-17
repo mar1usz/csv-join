@@ -39,7 +39,7 @@ namespace CsvJoin.Services
             string joinedColumnsFirst = joinedColumns.First();
             sql.AppendFormat("SELECT [{0}].[{1}]",
                 columns[0].Contains(joinedColumnsFirst) ? tables[0]
-                : tables[1],
+                    : tables[1],
                 joinedColumnsFirst);
 
             foreach (string joinedColumn in joinedColumns.Skip(1))
@@ -60,12 +60,11 @@ namespace CsvJoin.Services
                 fileNames[1],
                 tables[1]);
 
-            string commonColumnsFirst = commonColumns.First();
             sql.Append(Environment.NewLine);
             sql.AppendFormat("ON [{0}].[{2}] = [{1}].[{2}]",
                 tables[0],
                 tables[1],
-                commonColumnsFirst);
+                commonColumns.First());
 
             foreach (string commonColumn in commonColumns.Skip(1))
             {
