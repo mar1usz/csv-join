@@ -36,12 +36,8 @@ namespace CsvJoin.Services
             }
         }
 
-        private static IEnumerable<string> GetHeader(DbDataReader reader)
-        {
-            return reader
-                .GetColumnSchema()
-                .Select(c => c.ColumnName);
-        }
+        private static IEnumerable<string> GetHeader(DbDataReader reader) =>
+            reader.GetColumnSchema().Select(c => c.ColumnName);
 
         private IEnumerable<string> GetRecord(DbDataReader reader)
         {
