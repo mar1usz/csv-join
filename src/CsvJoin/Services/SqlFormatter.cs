@@ -25,7 +25,8 @@ namespace CsvJoin.Services
             return string.Join(Environment.NewLine, sqlLines);
         }
 
-        private void IndentLinesBySquareBracket(IEnumerable<string> sqlLines,
+        private void IndentLinesBySquareBracket(
+            IEnumerable<string> sqlLines,
             char indentChar)
         {
             int indexOfSquareBracketMax = sqlLines.Max(
