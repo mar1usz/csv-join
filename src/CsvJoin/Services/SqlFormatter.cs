@@ -16,7 +16,7 @@ namespace CsvJoin.Services
 
             if (insertFinalNewLine)
             {
-                sql += Environment.NewLine;
+                sql = InsertFinalNewLine(sql);
             }
 
             return sql;
@@ -38,10 +38,10 @@ namespace CsvJoin.Services
             return string.Join(Environment.NewLine, sqlLines);
         }
 
-        private int GetIndexOfSquareBracket(string sqlLine)
-        {
-            return sqlLine.Contains('[') ? sqlLine.IndexOf('[')
-                : sqlLine.Length + 1;
-        }
+        private string InsertFinalNewLine(string sql) =>
+            sql + Environment.NewLine;
+
+        private int GetIndexOfSquareBracket(string sqlLine) =>
+            sqlLine.Contains('[') ? sqlLine.IndexOf('[') : sqlLine.Length + 1;
     }
 }
