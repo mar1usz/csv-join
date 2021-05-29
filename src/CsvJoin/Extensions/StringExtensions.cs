@@ -8,7 +8,7 @@
             char indentChar)
         {
             string indentString = new string(indentChar, indentation);
-            return string.Concat(indentString, value);
+            return indentString + value;
         }
     }
 }
