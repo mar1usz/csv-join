@@ -38,10 +38,10 @@ namespace CsvJoin.Services
             return string.Join(Environment.NewLine, sqlLines);
         }
 
-        private string InsertFinalNewLine(string sql) =>
-            sql + Environment.NewLine;
-
         private int GetIndexOfSquareBracket(string sqlLine) =>
             sqlLine.Contains('[') ? sqlLine.IndexOf('[') : sqlLine.Length + 1;
+
+        private string InsertFinalNewLine(string sql) =>
+            sql + Environment.NewLine;
     }
 }
