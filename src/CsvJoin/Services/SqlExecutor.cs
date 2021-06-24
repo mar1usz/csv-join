@@ -17,7 +17,7 @@ namespace CsvJoin.Services
             Stream output)
         {
             using var connection = new OleDbConnection(connectionString);
-            var command = new OleDbCommand(sql, connection);
+            using var command = new OleDbCommand(sql, connection);
             connection.Open();
 
             using var reader = await command.ExecuteReaderAsync();
