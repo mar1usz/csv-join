@@ -9,7 +9,7 @@ namespace CsvJoin.Services
     {
         public string FormatSql(
             string sql,
-            char indentChar,
+            char indentChar = ' ',
             bool insertFinalNewLine = false)
         {
             sql = AlignLinesBySquareBracket(sql, indentChar);

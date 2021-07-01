@@ -36,7 +36,7 @@ namespace CsvJoin
 
             string sql = _preparator.PrepareFullJoinSql(directory, fileNames);
 
-            sql = _formatter.FormatSql(sql, indentChar: ' ');
+            sql = _formatter.FormatSql(sql);
 
             string connectionString = $@"Provider=Microsoft.ACE.OLEDB.16.0;
                 Data Source={directory};
