@@ -77,7 +77,8 @@ namespace CsvJoin.Services
         }
 
         public string PrepareRightAntiJoinSql(
-            string directory, string[] fileNames)
+            string directory,
+            string[] fileNames)
         {
             string[] tables = GetTableNamesFromFileNames(fileNames);
             string[][] columns = GetColumnNamesFromFilePaths(
