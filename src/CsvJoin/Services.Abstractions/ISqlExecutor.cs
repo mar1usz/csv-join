@@ -5,6 +5,6 @@ namespace CsvJoin.Services.Abstractions
 {
     public interface ISqlExecutor
     {
-        Task ExecuteSqlAsync(string sql, string connectionString, TextWriter output);
+        Task ExecuteSqlAsync(string sql, string connectionString, Stream output);
     }
 }
