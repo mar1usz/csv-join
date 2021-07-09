@@ -14,7 +14,7 @@ namespace CsvJoin.Services
         public async Task ExecuteSqlAsync(
             string sql,
             string connectionString,
-            Stream output)
+            TextWriter output)
         {
             using var connection = new OleDbConnection(connectionString);
             using var command = new OleDbCommand(sql, connection);
@@ -24,15 +24,15 @@ namespace CsvJoin.Services
             WriteResultsToCsv(reader, output);
         }
 
-        private void WriteResultsToCsv(DbDataReader reader, Stream output)
+        private void WriteResultsToCsv(DbDataReader reader, TextWriter output)
         {
             var header = GetHeader(reader);
-            CsvSerializer.SerializeToStream(header, output);
+            CsvSerializer.SerializeToWriter(header, output);
 
             while (reader.Read())
             {
                 var record = GetRecord(reader);
-                CsvSerializer.SerializeToStream(record, output);
+                CsvSerializer.SerializeToWriter(record, output);
             }
         }
 

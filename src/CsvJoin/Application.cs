@@ -43,7 +43,7 @@ namespace CsvJoin
                 OLE DB Services=-1;
                 Extended Properties=""text;Excel 16.0;HDR=YES;IMEX=1""";
 
-            var output = Console.OpenStandardOutput();
+            var output = Console.Out;
 
             await _executor.ExecuteSqlAsync(
                 sql,
