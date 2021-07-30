@@ -7,12 +7,9 @@ namespace CsvJoin.Services
 {
     public class SqlFormatter : ISqlFormatter
     {
-        public string FormatSql(
-            string sql,
-            char indentChar = ' ',
-            bool insertFinalNewLine = false)
+        public string FormatSql(string sql, bool insertFinalNewLine = false)
         {
-            sql = AlignLinesBySquareBracket(sql, indentChar);
+            sql = AlignLinesBySquareBracket(sql);
 
             if (insertFinalNewLine)
             {
@@ -22,17 +19,16 @@ namespace CsvJoin.Services
             return sql;
         }
 
-        private string AlignLinesBySquareBracket(string sql, char indentChar)
+        private string AlignLinesBySquareBracket(string sql)
         {
             string[] sqlLines = sql.Split(Environment.NewLine);
 
-            int indexOfSquareBracketMax = sqlLines.Max(
-                l => GetIndexOfSquareBracket(l));
+            int indexOfSquareBracketMax = sqlLines
+                .Max(l => GetIndexOfSquareBracket(l));
 
             sqlLines = sqlLines
                 .Select(l => l.Indent(
-                    indexOfSquareBracketMax - GetIndexOfSquareBracket(l),
-                    indentChar))
+                    indexOfSquareBracketMax - GetIndexOfSquareBracket(l)))
                 .ToArray();
 
             return string.Join(Environment.NewLine, sqlLines);
