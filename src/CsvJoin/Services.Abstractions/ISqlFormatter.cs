@@ -2,6 +2,6 @@
 {
     public interface ISqlFormatter
     {
-        string FormatSql(string sql, bool insertFinalNewLine = false);
+        string FormatSql(string sql, char indentChar = ' ', bool insertFinalNewLine = false);
     }
 }
