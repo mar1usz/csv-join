@@ -5,7 +5,7 @@
         public static string Indent(
             this string value,
             int indentation,
-            char indentChar = ' ')
+            char indentChar)
         {
             string indentString = new string(indentChar, indentation);
             return indentString + value;
