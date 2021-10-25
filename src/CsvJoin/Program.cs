@@ -22,7 +22,6 @@ namespace CsvJoin
         private static void ConfigureServices(IServiceCollection services)
         {
             AddServices(services);
-            
             AddApplication(services);
         }
 
