@@ -52,7 +52,12 @@ namespace CsvJoin
             await _saver.SaveSqlAsync(sql, SqlSaverFilePath);
         }
 
-        private string GetConnectionString(string directory) =>
-            $@"Provider=Microsoft.ACE.OLEDB.16.0;Data Source={directory};OLE DB Services=-1;Extended Properties=""text;Excel 16.0;HDR=YES;IMEX=1""";
+        private string GetConnectionString(string directory)
+        {
+            return "Provider=Microsoft.ACE.OLEDB.16.0;" +
+                $"Data Source={directory};" +
+                "OLE DB Services=-1;" +
+                @"Extended Properties=""text;Excel 16.0;HDR=YES;IMEX=1""";
+        }
     }
 }
