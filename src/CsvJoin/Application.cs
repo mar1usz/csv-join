@@ -7,6 +7,8 @@ namespace CsvJoin
 {
     public class Application
     {
+        private const string SqlPath = "SQLQuery.sql";
+
         private readonly ISqlPreparator _preparator;
         private readonly ISqlFormatter _formatter;
         private readonly ISqlExecutor _executor;
@@ -47,9 +49,7 @@ namespace CsvJoin
                 connectionString,
                 output);
 
-            string filePath = GetSaveSqlFilePath();
-
-            await _saver.SaveSqlAsync(sql, filePath);
+            await _saver.SaveSqlAsync(sql, SqlPath);
         }
 
         private string GetConnectionString(string directory)
@@ -59,8 +59,5 @@ namespace CsvJoin
                 "OLE DB Services=-1;" +
                 @"Extended Properties=""text;Excel 16.0;HDR=YES;IMEX=1""";
         }
-
-        private string GetSaveSqlFilePath() =>
-            "SQLQuery.sql";
     }
 }
