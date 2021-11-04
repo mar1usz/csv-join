@@ -27,7 +27,7 @@ namespace CsvJoin.Services
         public string PrepareLeftJoinSql(string directory, string[] fileNames)
         {
             string[] tables = GetTableNamesFromFileNames(fileNames);
-            string[][] columns = GetColumnNamesFromFilePaths(
+            string[][] columns = GetColumnNamesFromPaths(
                 directory, fileNames);
 
             string[] allColumns = columns[0].Union(columns[1]).ToArray();
@@ -81,7 +81,7 @@ namespace CsvJoin.Services
             string[] fileNames)
         {
             string[] tables = GetTableNamesFromFileNames(fileNames);
-            string[][] columns = GetColumnNamesFromFilePaths(
+            string[][] columns = GetColumnNamesFromPaths(
                 directory, fileNames);
 
             string[] allColumns = columns[0].Union(columns[1]).ToArray();
@@ -151,7 +151,7 @@ namespace CsvJoin.Services
                 .ToArray();
         }
 
-        private string[][] GetColumnNamesFromFilePaths(
+        private string[][] GetColumnNamesFromPaths(
             string directory,
             string[] fileNames)
         {
