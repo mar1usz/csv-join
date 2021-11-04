@@ -51,7 +51,7 @@ namespace CsvJoin
                 connectionString,
                 output);
 
-            await _saver.SaveSqlAsync(sql, SqlSaverFilePath);
+            await _saver.SaveSqlAsync(sql, filePath: SqlSaverFilePath);
         }
 
         private static string GetConnectionString(string directory)
