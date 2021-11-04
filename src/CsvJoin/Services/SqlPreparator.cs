@@ -15,10 +15,10 @@ namespace CsvJoin.Services
 
             sql.Append(PrepareLeftJoinSql(directory, fileNames));
 
-            sql.Append(Environment.NewLine);
+            sql.AppendLine();
             sql.Append("UNION");
 
-            sql.Append(Environment.NewLine);
+            sql.AppendLine();
             sql.Append(PrepareRightAntiJoinSql(directory, fileNames));
 
             return sql.ToString();
@@ -42,23 +42,23 @@ namespace CsvJoin.Services
 
             foreach (string column in allColumns.Skip(1))
             {
-                sql.Append(Environment.NewLine);
+                sql.AppendLine();
                 sql.AppendFormat(",[{0}].[{1}]",
                     columns[0].Contains(column) ? tables[0] : tables[1],
                     column);
             }
 
-            sql.Append(Environment.NewLine);
+            sql.AppendLine();
             sql.AppendFormat("FROM [{0}] AS [{1}]",
                 fileNames[0],
                 tables[0]);
 
-            sql.Append(Environment.NewLine);
+            sql.AppendLine();
             sql.AppendFormat("LEFT JOIN [{0}] AS [{1}]",
                 fileNames[1],
                 tables[1]);
 
-            sql.Append(Environment.NewLine);
+            sql.AppendLine();
             sql.AppendFormat("ON [{0}].[{2}] = [{1}].[{2}]",
                 tables[0],
                 tables[1],
@@ -66,7 +66,7 @@ namespace CsvJoin.Services
 
             foreach (string column in joinColumns.Skip(1))
             {
-                sql.Append(Environment.NewLine);
+                sql.AppendLine();
                 sql.AppendFormat("AND [{0}].[{2}] = [{1}].[{2}]",
                     tables[0],
                     tables[1],
@@ -96,24 +96,24 @@ namespace CsvJoin.Services
 
             foreach (string column in allColumns.Skip(1))
             {
-                sql.Append(Environment.NewLine);
+                sql.AppendLine();
                 sql.AppendFormat(",[{0}].[{1}]",
                     columns[1].Contains(column) ? tables[1] : tables[0],
                     column);
             }
 
-            sql.Append(Environment.NewLine);
+            sql.AppendLine();
             sql.AppendFormat("FROM [{0}] AS [{1}]",
                 fileNames[0],
                 tables[0]);
 
-            sql.Append(Environment.NewLine);
+            sql.AppendLine();
             sql.AppendFormat("RIGHT JOIN [{0}] AS [{1}]",
                 fileNames[1],
                 tables[1]);
 
             string joinColumnsFirst = joinColumns.First();
-            sql.Append(Environment.NewLine);
+            sql.AppendLine();
             sql.AppendFormat("ON [{0}].[{2}] = [{1}].[{2}]",
                 tables[0],
                 tables[1],
@@ -121,21 +121,21 @@ namespace CsvJoin.Services
 
             foreach (string column in joinColumns.Skip(1))
             {
-                sql.Append(Environment.NewLine);
+                sql.AppendLine();
                 sql.AppendFormat("AND [{0}].[{2}] = [{1}].[{2}]",
                     tables[0],
                     tables[1],
                     column);
             }
 
-            sql.Append(Environment.NewLine);
+            sql.AppendLine();
             sql.AppendFormat("WHERE [{0}].[{1}] IS NULL",
                 tables[0],
                 joinColumnsFirst);
 
             foreach (string column in joinColumns.Skip(1))
             {
-                sql.Append(Environment.NewLine);
+                sql.AppendLine();
                 sql.AppendFormat("AND [{0}].[{1}] IS NULL",
                     tables[0],
                     column);
