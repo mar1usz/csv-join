@@ -39,9 +39,9 @@ namespace CsvJoin
             sql = _formatter.FormatSql(sql);
 
             string connectionString = $@"Provider=Microsoft.ACE.OLEDB.16.0;
-                Data Source={directory};
-                OLE DB Services=-1;
-                Extended Properties=""text;Excel 16.0;HDR=YES;IMEX=1""";
+Data Source={directory};
+OLE DB Services=-1;
+Extended Properties=""text;Excel 16.0;HDR=YES;IMEX=1""";
 
             var output = Console.OpenStandardOutput();
 
