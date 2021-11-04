@@ -7,8 +7,6 @@ namespace CsvJoin
 {
     public class Application
     {
-        private const string SqlFilePath = "SQLQuery.sql";
-
         private readonly ISqlPreparator _preparator;
         private readonly ISqlFormatter _formatter;
         private readonly ISqlExecutor _executor;
@@ -40,7 +38,7 @@ namespace CsvJoin
 
             sql = _formatter.FormatSql(sql);
 
-            string connectionString = GetConnectionString(directory);
+            string connectionString = $@"Provider=Microsoft.ACE.OLEDB.16.0;Data Source={directory};OLE DB Services=-1;Extended Properties=""text;Excel 16.0;HDR=YES;IMEX=1""";
 
             var output = Console.OpenStandardOutput();
 
@@ -49,10 +47,7 @@ namespace CsvJoin
                 connectionString,
                 output);
 
-            await _saver.SaveSqlAsync(sql, filePath: SqlFilePath);
+            await _saver.SaveSqlAsync(sql, filePath: "SQLQuery.sql");
         }
-
-        private static string GetConnectionString(string directory) =>
-            $@"Provider=Microsoft.ACE.OLEDB.16.0;Data Source={directory};OLE DB Services=-1;Extended Properties=""text;Excel 16.0;HDR=YES;IMEX=1""";
     }
 }
