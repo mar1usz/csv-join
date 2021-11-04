@@ -7,6 +7,8 @@ namespace CsvJoin
 {
     public class Application
     {
+        private const string SqlFilePath = "SQLQuery.sql";
+
         private readonly ISqlPreparator _preparator;
         private readonly ISqlFormatter _formatter;
         private readonly ISqlExecutor _executor;
@@ -47,7 +49,7 @@ namespace CsvJoin
                 connectionString,
                 output);
 
-            await _saver.SaveSqlAsync(sql, filePath: "SQLQuery.sql");
+            await _saver.SaveSqlAsync(sql, filePath: SqlFilePath);
         }
 
         private static string GetConnectionString(string directory) =>
