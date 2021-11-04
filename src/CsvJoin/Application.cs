@@ -47,7 +47,7 @@ namespace CsvJoin
                 connectionString,
                 output);
 
-            string filePath = GetSqlSaverFilePath();
+            string filePath = GetSaveSqlFilePath();
 
             await _saver.SaveSqlAsync(sql, filePath);
         }
@@ -60,7 +60,7 @@ namespace CsvJoin
                 @"Extended Properties=""text;Excel 16.0;HDR=YES;IMEX=1""";
         }
 
-        private string GetSqlSaverFilePath() =>
+        private string GetSaveSqlFilePath() =>
             "SQLQuery.sql";
     }
 }
