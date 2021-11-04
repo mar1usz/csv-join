@@ -1,5 +1,7 @@
-﻿using CsvJoin.Services.Abstractions;
+﻿using CsvJoin.Extensions;
+using CsvJoin.Services.Abstractions;
 using System;
+using System.Data.OleDb;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,10 +40,7 @@ namespace CsvJoin
 
             sql = _formatter.FormatSql(sql);
 
-            string connectionString = "Provider=Microsoft.ACE.OLEDB.16.0;" +
-                $"Data Source={directory};" +
-                "OLE DB Services=-1;" +
-                @"Extended Properties=""text;Excel 16.0;HDR=YES;IMEX=1""";
+            string connectionString = GetConnectionString(directory);
 
             var output = Console.OpenStandardOutput();
 
@@ -51,6 +50,18 @@ namespace CsvJoin
                 output);
 
             await _saver.SaveSqlAsync(sql, filePath: "SQLQuery.sql");
+        }
+
+        private static string GetConnectionString(string directory)
+        {
+            var connectionString = new OleDbConnectionStringBuilder();
+
+            connectionString.AddProvider("Microsoft.ACE.OLEDB.16.0");
+            connectionString.AddDataSource(directory);
+            connectionString.AddOleDbServices("-1");
+            connectionString.AddExtendedProperties("text;Excel 16.0;HDR=YES;IMEX=1");
+
+            return connectionString.ToString();
         }
     }
 }
