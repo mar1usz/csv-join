@@ -10,6 +10,7 @@ namespace CsvJoin
     public class Application
     {
         private const string SqlPath = "SQLQuery.sql";
+
         private static readonly Stream Output = Console.OpenStandardOutput();
 
         private readonly ISqlPreparator _preparator;
