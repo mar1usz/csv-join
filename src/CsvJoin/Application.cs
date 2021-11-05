@@ -1,5 +1,6 @@
 ﻿using CsvJoin.Services.Abstractions;
 using System;
+using System.Data.OleDb;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -54,10 +55,15 @@ namespace CsvJoin
 
         private string GetConnectionString(string directory)
         {
-            return "Provider=Microsoft.ACE.OLEDB.16.0;" +
-                $"Data Source={directory};" +
-                "OLE DB Services=-1;" +
-                "Extended Properties=\"text;Excel 16.0;HDR=YES;IMEX=1\"";
+            var connectionString = new OleDbConnectionStringBuilder
+            {
+                { "Provider", "Microsoft.ACE.OLEDB.16.0" },
+                { "Data Source", directory },
+                { "OLE DB Services", -1 },
+                { "Extended Properties", "text;Excel 16.0;HDR=YES;IMEX=1" }
+            };
+
+            return connectionString.ToString();
         }
     }
 }
