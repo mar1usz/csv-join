@@ -7,6 +7,8 @@ namespace CsvJoin.Services
 {
     public class SqlFormatter : ISqlFormatter
     {
+        private const char SquareBracket = '[';
+
         public string FormatSql(
             string sql,
             char indentChar = ' ',
@@ -42,6 +44,6 @@ namespace CsvJoin.Services
             sql + Environment.NewLine;
 
         private int GetIndexOfSquareBracket(string sqlLine) =>
-            sqlLine.Contains('[') ? sqlLine.IndexOf('[') : sqlLine.Length + 1;
+            sqlLine.Contains(SquareBracket) ? sqlLine.IndexOf(SquareBracket) : sqlLine.Length + 1;
     }
 }
