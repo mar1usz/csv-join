@@ -1,6 +1,7 @@
 ﻿using CsvJoin.Services.Abstractions;
 using System;
 using System.Data.OleDb;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace CsvJoin
     public class Application
     {
         private const string SqlPath = "SQLQuery.sql";
+        private static readonly Stream Output = Console.OpenStandardOutput();
 
         private readonly ISqlPreparator _preparator;
         private readonly ISqlFormatter _formatter;
@@ -41,14 +43,10 @@ namespace CsvJoin
 
             sql = _formatter.FormatSql(sql);
 
-            string connectionString = GetConnectionString(directory);
-
-            var output = Console.OpenStandardOutput();
-
             await _executor.ExecuteSqlAsync(
                 sql,
-                connectionString,
-                output);
+                GetConnectionString(directory),
+                Output);
 
             await _saver.SaveSqlAsync(sql, SqlPath);
         }
