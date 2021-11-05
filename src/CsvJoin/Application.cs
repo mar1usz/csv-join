@@ -44,9 +44,11 @@ namespace CsvJoin
 
             sql = _formatter.FormatSql(sql);
 
+            string connectionString = GetConnectionString(directory);
+
             await _executor.ExecuteSqlAsync(
                 sql,
-                GetConnectionString(directory),
+                connectionString,
                 Output);
 
             await _saver.SaveSqlAsync(sql, SqlPath);
