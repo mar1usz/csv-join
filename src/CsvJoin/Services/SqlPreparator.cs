@@ -82,8 +82,8 @@ namespace CsvJoin.Services
             string[] tables = GetTableNamesFromFileNames(fileNames);
             string[][] columns = GetColumnNamesFromPaths(directory, fileNames);
 
-            string[] allColumns = columns[0].Union(columns[1]).ToArray();
-            string[] joinColumns = columns[0].Intersect(columns[1]).ToArray();
+            string[] allColumns = GetAllColumns(columns);
+            string[] joinColumns = GetJoinColumns(columns);
 
             var sql = new StringBuilder();
 
