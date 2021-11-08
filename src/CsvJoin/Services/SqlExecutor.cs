@@ -18,11 +18,14 @@ namespace CsvJoin.Services
         {
             using var connection = new OleDbConnection(connectionString);
             using var command = new OleDbCommand(sql, connection);
-            connection.Open();
+            OpenConnection(connection);
 
             using var reader = await command.ExecuteReaderAsync();
             WriteResultsToCsv(reader, output);
         }
+
+        private void OpenConnection(OleDbConnection connection) =>
+            connection.Open();
 
         private void WriteResultsToCsv(DbDataReader reader, Stream output)
         {
