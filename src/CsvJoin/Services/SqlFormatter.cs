@@ -43,7 +43,11 @@ namespace CsvJoin.Services
         private string InsertFinalNewLine(string sql) =>
             sql + Environment.NewLine;
 
-        private int GetIndexOfSquareBracket(string sqlLine) =>
-            sqlLine.Contains(SquareBracket) ? sqlLine.IndexOf(SquareBracket) : sqlLine.Length + 1;
+        private int GetIndexOfSquareBracket(string sqlLine)
+        {
+            return sqlLine.Contains(SquareBracket)
+                ? sqlLine.IndexOf(SquareBracket)
+                : sqlLine.Length + 1;
+        }
     }
 }
