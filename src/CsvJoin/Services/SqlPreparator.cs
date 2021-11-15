@@ -29,8 +29,8 @@ namespace CsvJoin.Services
             string[] tables = GetTableNames(fileNames);
             string[][] columns = GetColumnNames(directory, fileNames);
 
-            string[] allColumns = GetAllColumns(columns);
-            string[] joinColumns = GetJoinColumns(columns);
+            string[] allColumns = GetAllColumnNames(columns);
+            string[] joinColumns = GetJoinColumnNames(columns);
 
             var sql = new StringBuilder();
 
@@ -82,8 +82,8 @@ namespace CsvJoin.Services
             string[] tables = GetTableNames(fileNames);
             string[][] columns = GetColumnNames(directory, fileNames);
 
-            string[] allColumns = GetAllColumns(columns);
-            string[] joinColumns = GetJoinColumns(columns);
+            string[] allColumns = GetAllColumnNames(columns);
+            string[] joinColumns = GetJoinColumnNames(columns);
 
             var sql = new StringBuilder();
 
@@ -156,10 +156,10 @@ namespace CsvJoin.Services
                 .ToArray();
         }
 
-        private string[] GetAllColumns(string[][] columns) =>
+        private string[] GetAllColumnNames(string[][] columns) =>
            columns[0].Union(columns[1]).ToArray();
 
-        private string[] GetJoinColumns(string[][] columns) =>
+        private string[] GetJoinColumnNames(string[][] columns) =>
             columns[0].Intersect(columns[1]).ToArray();
     }
 }
