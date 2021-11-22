@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CsvJoin.Services
+namespace CsvJoin
 {
     public class Column : IEquatable<Column>
     {
