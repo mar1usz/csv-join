@@ -13,24 +13,21 @@ namespace CsvJoin
 
         private static readonly Stream Output = Console.OpenStandardOutput();
 
-        private readonly ITablesExtractor _tablesExtractor;
-        private readonly ISqlPreparator _sqlPreparator;
-        private readonly ISqlFormatter _sqlFormatter;
-        private readonly ISqlExecutor _sqlExecutor;
-        private readonly ISqlSaver _sqlSaver;
+        private readonly ISqlPreparator _preparator;
+        private readonly ISqlFormatter _formatter;
+        private readonly ISqlExecutor _executor;
+        private readonly ISqlSaver _saver;
 
         public Application(
-            ITablesExtractor tablesExtractor,
-            ISqlPreparator sqlPreparator,
-            ISqlFormatter sqlFormatter,
-            ISqlExecutor sqlExecutor,
-            ISqlSaver sqlSaver)
+            ISqlPreparator preparator,
+            ISqlFormatter formatter,
+            ISqlExecutor executor,
+            ISqlSaver saver)
         {
-            _tablesExtractor = tablesExtractor;
-            _sqlPreparator = sqlPreparator;
-            _sqlFormatter = sqlFormatter;
-            _sqlExecutor = sqlExecutor;
-            _sqlSaver = sqlSaver;
+            _preparator = preparator;
+            _formatter = formatter;
+            _executor = executor;
+            _saver = saver;
         }
 
         public async Task RunAsync(string[] args)
@@ -43,20 +40,18 @@ namespace CsvJoin
             string directory = args.First();
             string[] fileNames = args.Skip(1).Take(2).ToArray();
 
-            var tables = _tablesExtractor.ExtractTables(directory, fileNames);
+            string sql = _preparator.PrepareFullJoinSql(directory, fileNames);
 
-            string sql = _sqlPreparator.PrepareFullJoinSql(tables);
-
-            sql = _sqlFormatter.FormatSql(sql);
+            sql = _formatter.FormatSql(sql);
 
             string connectionString = GetConnectionString(directory);
 
-            await _sqlExecutor.ExecuteSqlAsync(
+            await _executor.ExecuteSqlAsync(
                 sql,
                 connectionString,
                 Output);
 
-            await _sqlSaver.SaveSqlAsync(sql, SqlPath);
+            await _saver.SaveSqlAsync(sql, SqlPath);
         }
 
         private string GetConnectionString(string directory)

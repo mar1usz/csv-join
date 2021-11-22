@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace CsvJoin.Services.Abstractions
+﻿namespace CsvJoin.Services.Abstractions
 {
     public interface ISqlPreparator
     {
-        string PrepareFullJoinSql(IEnumerable<Table> tables);
-        string PrepareLeftJoinSql(IEnumerable<Table> tables);
-        string PrepareRightAntiJoinSql(IEnumerable<Table> tables);
+        string PrepareFullJoinSql(string directory, string[] fileNames);
+        string PrepareLeftJoinSql(string directory, string[] fileNames);
+        string PrepareRightAntiJoinSql(string directory, string[] fileNames);
     }
 }

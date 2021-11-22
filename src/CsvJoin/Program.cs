@@ -28,7 +28,6 @@ namespace CsvJoin
 
         private static void AddServices(IServiceCollection services)
         {
-            services.AddTransient<ITablesExtractor, TablesExtractor>();
             services.AddTransient<ISqlPreparator, SqlPreparator>();
             services.AddTransient<ISqlFormatter, SqlFormatter>();
             services.AddTransient<ISqlExecutor, SqlExecutor>();
