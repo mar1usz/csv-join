@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CsvJoin
+namespace CsvJoin.Services
 {
     public class Table
     {
