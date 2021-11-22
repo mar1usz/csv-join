@@ -32,7 +32,7 @@ namespace CsvJoin.Services
             string fileName)
         {
             return GetColumnNames(directory, fileName)
-                .Select(f => new Column { Name = f });
+                .Select(cn => new Column { Name = cn });
         }
 
         private string GetTableName(string fileName) =>
