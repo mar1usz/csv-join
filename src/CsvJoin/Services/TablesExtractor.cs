@@ -20,19 +20,12 @@ namespace CsvJoin.Services
                 {
                     Name = GetTableName(fileName),
                     FileName = fileName,
-                    Columns = ExtractColumns(directory, fileName)
+                    Columns = GetColumnNames(directory, fileName)
+                        .Select(f => new Column { Name = f })
                 });
             }
 
             return tables;
-        }
-
-        private IEnumerable<Column> ExtractColumns(
-            string directory,
-            string fileName)
-        {
-            return GetColumnNames(directory, fileName)
-                .Select(f => new Column { Name = f });
         }
 
         private string GetTableName(string fileName) =>
