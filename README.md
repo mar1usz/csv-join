@@ -14,7 +14,7 @@ CsvJoin.exe Data sales.csv new_sales.csv > joined_sales.csv
 - .NET Core 3.1
 - Visual Studio 2019
 
-## Credits:
+## Acknowledgements:
 - Microsoft.Extensions.DependencyInjection by https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection (MIT license)
 - System.Data.OleDb by https://www.nuget.org/packages/System.Data.OleDb (MIT license)
 - ServiceStack.Text by https://www.nuget.org/packages/ServiceStack.Text ([license](https://github.com/ServiceStack/ServiceStack.Text/blob/master/license.txt))
