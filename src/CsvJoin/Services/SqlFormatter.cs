@@ -28,8 +28,8 @@ namespace CsvJoin.Services
         {
             string[] sqlLines = sql.Split(Environment.NewLine);
 
-            int indexOfSquareBracketMax = sqlLines
-                .Max(l => GetIndexOfSquareBracket(l));
+            int indexOfSquareBracketMax = sqlLines.Max(
+                l => GetIndexOfSquareBracket(l));
 
             sqlLines = sqlLines
                 .Select(l => l.Indent(
