@@ -42,8 +42,8 @@ namespace CsvJoin
             string sql = _preparator.PrepareFullJoinSql(directory, fileNames);
 
             sql = _formatter.FormatSql(sql);
-            string connectionString = GetConnectionString(directory);
 
+            string connectionString = GetConnectionString(directory);
             await _executor.ExecuteSqlAsync(
                 sql,
                 connectionString,
