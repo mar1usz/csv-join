@@ -40,15 +40,14 @@ namespace CsvJoin
             string[] fileNames = args.Skip(1).Take(2).ToArray();
 
             string sql = _preparator.PrepareFullJoinSql(directory, fileNames);
-
             sql = _formatter.FormatSql(sql);
 
             string connectionString = GetConnectionString(directory);
+
             await _executor.ExecuteSqlAsync(
                 sql,
                 connectionString,
                 Output);
-
             await _saver.SaveSqlAsync(sql, SqlPath);
         }
 
