@@ -10,11 +10,8 @@ namespace CsvJoin
         public static async Task Main(string[] args)
         {
             var services = new ServiceCollection();
-
-            ConfigureServices(services);
-            
-            var serviceProvider = services.BuildServiceProvider();
-            
+            ConfigureServices(services);            
+            var serviceProvider = services.BuildServiceProvider();            
             await serviceProvider.GetRequiredService<Application>()
                 .RunAsync(args);
         }
