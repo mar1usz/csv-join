@@ -26,49 +26,49 @@ namespace CsvJoin.Services
 
         public string PrepareLeftJoinSql(string directory, string[] fileNames)
         {
-            string[] tables = GetTableNames(fileNames);
-            string[][] columns = GetColumnNames(directory, fileNames);
-
-            string[] allColumns = GetAllColumnNames(columns);
-            string[] joinColumns = GetJoinColumnNames(columns);
-
             var sql = new StringBuilder();
 
-            string allColumnsFirst = allColumns.First();
+            var command = GetCommand(directory, fileNames);
+
+            string allColumnsFirst = command.AllColumnNames.First();
             sql.AppendFormat("SELECT [{0}].[{1}]",
-                columns[0].Contains(allColumnsFirst) ? tables[0] : tables[1],
+                command.ColumnNames[0].Contains(allColumnsFirst)
+                    ? command.TableNames[0]
+                    : command.TableNames[1],
                 allColumnsFirst);
 
-            foreach (string column in allColumns.Skip(1))
+            foreach (string column in command.AllColumnNames.Skip(1))
             {
                 sql.AppendLine();
                 sql.AppendFormat(",[{0}].[{1}]",
-                    columns[0].Contains(column) ? tables[0] : tables[1],
+                    command.ColumnNames[0].Contains(column)
+                        ? command.TableNames[0]
+                        : command.TableNames[1],
                     column);
             }
 
             sql.AppendLine();
             sql.AppendFormat("FROM [{0}] AS [{1}]",
-                fileNames[0],
-                tables[0]);
+                command.FileNames[0],
+                command.TableNames[0]);
 
             sql.AppendLine();
             sql.AppendFormat("LEFT JOIN [{0}] AS [{1}]",
-                fileNames[1],
-                tables[1]);
+                command.FileNames[1],
+                command.TableNames[1]);
 
             sql.AppendLine();
             sql.AppendFormat("ON [{0}].[{2}] = [{1}].[{2}]",
-                tables[0],
-                tables[1],
-                joinColumns.First());
+                command.TableNames[0],
+                command.TableNames[1],
+                command.JoinColumnNames.First());
 
-            foreach (string column in joinColumns.Skip(1))
+            foreach (string column in command.JoinColumnNames.Skip(1))
             {
                 sql.AppendLine();
                 sql.AppendFormat("AND [{0}].[{2}] = [{1}].[{2}]",
-                    tables[0],
-                    tables[1],
+                    command.TableNames[0],
+                    command.TableNames[1],
                     column);
             }
 
@@ -79,67 +79,85 @@ namespace CsvJoin.Services
             string directory,
             string[] fileNames)
         {
-            string[] tables = GetTableNames(fileNames);
-            string[][] columns = GetColumnNames(directory, fileNames);
-
-            string[] allColumns = GetAllColumnNames(columns);
-            string[] joinColumns = GetJoinColumnNames(columns);
-
             var sql = new StringBuilder();
 
-            string allColumnsFirst = allColumns.First();
+            var command = GetCommand(directory, fileNames);
+
+            string allColumnsFirst = command.AllColumnNames.First();
             sql.AppendFormat("SELECT [{0}].[{1}]",
-                columns[1].Contains(allColumnsFirst) ? tables[1] : tables[0],
+                command.ColumnNames[1].Contains(allColumnsFirst)
+                    ? command.TableNames[1]
+                    : command.TableNames[0],
                 allColumnsFirst);
 
-            foreach (string column in allColumns.Skip(1))
+            foreach (string column in command.AllColumnNames.Skip(1))
             {
                 sql.AppendLine();
                 sql.AppendFormat(",[{0}].[{1}]",
-                    columns[1].Contains(column) ? tables[1] : tables[0],
+                    command.ColumnNames[1].Contains(column)
+                        ? command.TableNames[1]
+                        : command.TableNames[0],
                     column);
             }
 
             sql.AppendLine();
             sql.AppendFormat("FROM [{0}] AS [{1}]",
-                fileNames[0],
-                tables[0]);
+                command.FileNames[0],
+                command.TableNames[0]);
 
             sql.AppendLine();
             sql.AppendFormat("RIGHT JOIN [{0}] AS [{1}]",
-                fileNames[1],
-                tables[1]);
+                command.FileNames[1],
+                command.TableNames[1]);
 
-            string joinColumnsFirst = joinColumns.First();
+            string joinColumnsFirst = command.JoinColumnNames.First();
             sql.AppendLine();
             sql.AppendFormat("ON [{0}].[{2}] = [{1}].[{2}]",
-                tables[0],
-                tables[1],
+                command.TableNames[0],
+                command.TableNames[1],
                 joinColumnsFirst);
 
-            foreach (string column in joinColumns.Skip(1))
+            foreach (string column in command.JoinColumnNames.Skip(1))
             {
                 sql.AppendLine();
                 sql.AppendFormat("AND [{0}].[{2}] = [{1}].[{2}]",
-                    tables[0],
-                    tables[1],
+                    command.TableNames[0],
+                    command.TableNames[1],
                     column);
             }
 
             sql.AppendLine();
             sql.AppendFormat("WHERE [{0}].[{1}] IS NULL",
-                tables[0],
+                command.TableNames[0],
                 joinColumnsFirst);
 
-            foreach (string column in joinColumns.Skip(1))
+            foreach (string column in command.JoinColumnNames.Skip(1))
             {
                 sql.AppendLine();
                 sql.AppendFormat("AND [{0}].[{1}] IS NULL",
-                    tables[0],
+                    command.TableNames[0],
                     column);
             }
 
             return sql.ToString();
+        }
+
+        private PrepareJoinCommand GetCommand(
+            string directory,
+            string[] fileNames)
+        {
+            string[] tableNames = GetTableNames(fileNames);
+            string[][] columnNames = GetColumnNames(directory, fileNames);
+
+            return new PrepareJoinCommand
+            {
+                FileNames = fileNames,
+                TableNames = tableNames,
+                ColumnNames = columnNames,
+                AllColumnNames = columnNames[0].Union(columnNames[1]).ToArray(),
+                JoinColumnNames = columnNames[0].Intersect(columnNames[1])
+                    .ToArray()
+            };
         }
 
         private string[] GetTableNames(string[] fileNames)
@@ -156,10 +174,13 @@ namespace CsvJoin.Services
                 .ToArray();
         }
 
-        private string[] GetAllColumnNames(string[][] columnNames) =>
-           columnNames[0].Union(columnNames[1]).ToArray();
-
-        private string[] GetJoinColumnNames(string[][] columnNames) =>
-            columnNames[0].Intersect(columnNames[1]).ToArray();
+        private class PrepareJoinCommand
+        {
+            public string[] FileNames { get; set; }
+            public string[] TableNames { get; set; }
+            public string[][] ColumnNames { get; set; }
+            public string[] AllColumnNames { get; set; }
+            public string[] JoinColumnNames { get; set; }
+        }
     }
 }
