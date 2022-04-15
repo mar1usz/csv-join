@@ -29,6 +29,7 @@ namespace CsvJoin.Services
             var sql = new StringBuilder();
 
             var command = GetCommand(directory, fileNames);
+
             string allColumnsFirst = command.AllColumnNames.First();
             sql.AppendFormat("SELECT [{0}].[{1}]",
                 command.ColumnNames[0].Contains(allColumnsFirst)
@@ -81,6 +82,7 @@ namespace CsvJoin.Services
             var sql = new StringBuilder();
 
             var command = GetCommand(directory, fileNames);
+
             string allColumnsFirst = command.AllColumnNames.First();
             sql.AppendFormat("SELECT [{0}].[{1}]",
                 command.ColumnNames[1].Contains(allColumnsFirst)
