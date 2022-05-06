@@ -28,7 +28,7 @@ namespace CsvJoin.Services
         {
             var sql = new StringBuilder();
 
-            var command = GetCommand(directory, fileNames);
+            var command = ExtractCommand(directory, fileNames);
 
             string allColumnsFirst = command.AllColumnNames.First();
             sql.AppendFormat("SELECT [{0}].[{1}]",
@@ -81,7 +81,7 @@ namespace CsvJoin.Services
         {
             var sql = new StringBuilder();
 
-            var command = GetCommand(directory, fileNames);
+            var command = ExtractCommand(directory, fileNames);
 
             string allColumnsFirst = command.AllColumnNames.First();
             sql.AppendFormat("SELECT [{0}].[{1}]",
@@ -142,12 +142,12 @@ namespace CsvJoin.Services
             return sql.ToString();
         }
 
-        private PrepareJoinCommand GetCommand(
+        private PrepareJoinCommand ExtractCommand(
             string directory,
             string[] fileNames)
         {
-            string[] tableNames = GetTableNames(fileNames);
-            string[][] columnNames = GetColumnNames(directory, fileNames);
+            string[] tableNames = ExtractTableNames(fileNames);
+            string[][] columnNames = ExtractColumnNames(directory, fileNames);
 
             return new PrepareJoinCommand
             {
@@ -160,14 +160,16 @@ namespace CsvJoin.Services
             };
         }
 
-        private string[] GetTableNames(string[] fileNames)
+        private string[] ExtractTableNames(string[] fileNames)
         {
             return fileNames
                 .Select(f => Path.GetFileNameWithoutExtension(f))
                 .ToArray();
         }
 
-        private string[][] GetColumnNames(string directory, string[] fileNames)
+        private string[][] ExtractColumnNames(
+            string directory,
+            string[] fileNames)
         {
             return fileNames
                 .Select(f => CsvUtilities.ReadHeader(directory, f))
