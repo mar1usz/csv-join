@@ -27,7 +27,6 @@ namespace CsvJoin.Services
         public string PrepareLeftJoinSql(string directory, string[] fileNames)
         {
             var sql = new StringBuilder();
-
             var command = ExtractCommand(directory, fileNames);
 
             string allColumnsFirst = command.AllColumnNames.First();
@@ -80,7 +79,6 @@ namespace CsvJoin.Services
             string[] fileNames)
         {
             var sql = new StringBuilder();
-
             var command = ExtractCommand(directory, fileNames);
 
             string allColumnsFirst = command.AllColumnNames.First();
