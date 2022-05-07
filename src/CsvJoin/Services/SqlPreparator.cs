@@ -153,10 +153,7 @@ namespace CsvJoin.Services
             {
                 FileNames = fileNames,
                 TableNames = tableNames,
-                ColumnNames = columnNames,
-                AllColumnNames = columnNames[0].Union(columnNames[1]).ToArray(),
-                JoinColumnNames = columnNames[0].Intersect(columnNames[1])
-                    .ToArray()
+                ColumnNames = columnNames
             };
         }
 
@@ -181,8 +178,10 @@ namespace CsvJoin.Services
             public string[] FileNames { get; set; }
             public string[] TableNames { get; set; }
             public string[][] ColumnNames { get; set; }
-            public string[] AllColumnNames { get; set; }
-            public string[] JoinColumnNames { get; set; }
+            public string[] AllColumnNames =>
+                ColumnNames[0].Union(ColumnNames[1]).ToArray();
+            public string[] JoinColumnNames =>
+                ColumnNames[0].Intersect(ColumnNames[1]).ToArray();
         }
     }
 }
