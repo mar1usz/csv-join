@@ -9,6 +9,9 @@ CsvJoin.exe Data sales.csv new_sales.csv > joined_sales.csv
 - Save results to CSV
 - Save auto-generated SQL
 
+## To implement:
+- Protect against SQL injection
+
 ## Prerequisites:
 - Microsoft Access Database Engine 2016 Redistributable
 - .NET Core 3.1
