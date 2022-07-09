@@ -147,12 +147,7 @@ namespace CsvJoin.Services
             string[] tableNames = ExtractTableNames(fileNames);
             string[][] columnNames = ExtractColumnNames(directory, fileNames);
 
-            return new PrepareJoinCommand
-            {
-                FileNames = fileNames,
-                TableNames = tableNames,
-                ColumnNames = columnNames
-            };
+            return new PrepareJoinCommand(fileNames, tableNames, columnNames);
         }
 
         private string[] ExtractTableNames(string[] fileNames)
@@ -173,13 +168,24 @@ namespace CsvJoin.Services
 
         private class PrepareJoinCommand
         {
-            public string[] FileNames { get; set; }
-            public string[] TableNames { get; set; }
-            public string[][] ColumnNames { get; set; }
-            public string[] AllColumnNames =>
-                ColumnNames[0].Union(ColumnNames[1]).ToArray();
-            public string[] JoinColumnNames =>
-                ColumnNames[0].Intersect(ColumnNames[1]).ToArray();
+            public string[] FileNames { get; }
+            public string[] TableNames { get; }
+            public string[][] ColumnNames { get; }
+            public string[] AllColumnNames { get; }
+            public string[] JoinColumnNames { get; }
+
+            public PrepareJoinCommand(
+                string[] fileNames,
+                string[] tableNames,
+                string[][] columnNames)
+            {
+                FileNames = fileNames;
+                TableNames = tableNames;
+                ColumnNames = columnNames;
+                AllColumnNames = columnNames[0].Union(columnNames[1]).ToArray();
+                JoinColumnNames = columnNames[0].Intersect(columnNames[1])
+                    .ToArray();
+            }
         }
     }
 }
