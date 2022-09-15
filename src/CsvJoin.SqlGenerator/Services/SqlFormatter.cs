@@ -1,9 +1,9 @@
-using CsvJoin.Extensions;
-using CsvJoin.Services.Abstractions;
+using CsvJoin.SqlGenerator.Services.Abstractions;
+using CsvJoin.SqlGenerator.Extensions;
 using System;
 using System.Linq;
 
-namespace CsvJoin.Services
+namespace CsvJoin.SqlGenerator.Services
 {
     public class SqlFormatter : ISqlFormatter
     {

@@ -9,46 +9,37 @@ namespace CsvJoin
 {
     public class Application
     {
-        private const string SqlPath = "SQLQuery.sql";
-        private static readonly Stream Output = Console.OpenStandardOutput();
+        private static readonly Stream Output =
+            Console.OpenStandardOutput();
 
-        private readonly ISqlPreparator _preparator;
-        private readonly ISqlFormatter _formatter;
+        private readonly ISqlReader _reader;
         private readonly ISqlExecutor _executor;
-        private readonly ISqlSaver _saver;
 
         public Application(
-            ISqlPreparator preparator,
-            ISqlFormatter formatter,
-            ISqlExecutor executor,
-            ISqlSaver saver)
+            ISqlReader reader,
+            ISqlExecutor executor)
         {
-            _preparator = preparator;
-            _formatter = formatter;
+            _reader = reader;
             _executor = executor;
-            _saver = saver;
         }
 
         public async Task RunAsync(string[] args)
         {
-            if (args.Length < 3)
+            if (args.Length < 2)
             {
                 throw new ArgumentException(nameof(args));
             }
 
-            string directory = args.First();
-            string[] fileNames = args.Skip(1).Take(2).ToArray();
+            string sqlPath = args.First();
+            string csvFilesDirectory = args.Skip(1).First();
 
-            string sql = _preparator.PrepareFullJoinSql(directory, fileNames);
-            sql = _formatter.FormatSql(sql);
-
-            string connectionString = GetConnectionString(directory);
+            string sql = await _reader.ReadSqlAsync(sqlPath);
+            string connectionString = GetConnectionString(csvFilesDirectory);
 
             await _executor.ExecuteSqlAsync(
                 sql,
                 connectionString,
                 Output);
-            await _saver.SaveSqlAsync(sql, SqlPath);
         }
 
         private string GetConnectionString(string directory)

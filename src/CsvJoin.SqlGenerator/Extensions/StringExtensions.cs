@@ -1,4 +1,4 @@
-﻿namespace CsvJoin.Extensions
+﻿namespace CsvJoin.SqlGenerator.Extensions
 {
     public static class StringExtensions
     {

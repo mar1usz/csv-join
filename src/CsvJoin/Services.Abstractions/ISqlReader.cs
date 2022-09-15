@@ -2,8 +2,8 @@
 
 namespace CsvJoin.Services.Abstractions
 {
-    public interface ISqlSaver
+    public interface ISqlReader
     {
-        Task SaveSqlAsync(string sql, string path);
+        Task<string> ReadSqlAsync(string path);
     }
 }

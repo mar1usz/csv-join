@@ -2,7 +2,7 @@
   "profiles": {
     "CsvJoin": {
       "commandName": "Project",
-      "commandLineArgs": "Data sales.csv new_sales.csv"
+      "commandLineArgs": "SQLQuery.sql Data"
     }
   }
 }

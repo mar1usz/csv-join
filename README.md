@@ -1,7 +1,8 @@
 # CSV Join SQL
 A command-line tool for performing full outer joins on CSV files in C# .NET Core using SQL:
 ```
-CsvJoin.exe Data sales.csv new_sales.csv > joined_sales.csv
+CsvJoin.CsvJoin.SqlGenerator.exe Data sales.csv new_sales.csv > SqlQuery.sql
+CsvJoin.exe SqlQuery.sql Data > joined_sales.csv
 ```
 
 ## Features:
@@ -9,8 +10,17 @@ CsvJoin.exe Data sales.csv new_sales.csv > joined_sales.csv
 - Save results to CSV
 - Save auto-generated SQL
 
-## To implement:
-- Protect against SQL injection
+## Build and run:
+- Build CsvJoin and CsvJoin.SqlGenerator projects
+- Generate sql script:
+```
+CsvJoin.CsvJoin.SqlGenerator.exe Data sales.csv new_sales.csv > SqlQuery.sql
+```
+- Verify that the generated script does not contain SQL injection
+- Execute the script:
+```
+CsvJoin.exe SqlQuery.sql Data > joined_sales.csv
+```
 
 ## Prerequisites:
 - Microsoft Access Database Engine 2016 Redistributable

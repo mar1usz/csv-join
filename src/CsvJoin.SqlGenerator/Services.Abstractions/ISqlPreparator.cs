@@ -1,4 +1,4 @@
-﻿namespace CsvJoin.Services.Abstractions
+﻿namespace CsvJoin.SqlGenerator.Services.Abstractions
 {
     public interface ISqlPreparator
     {

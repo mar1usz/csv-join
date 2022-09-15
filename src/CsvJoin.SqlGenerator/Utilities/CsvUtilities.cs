@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace CsvJoin.Utilities
+namespace CsvJoin.SqlGenerator.Utilities
 {
     public static class CsvUtilities
     {
