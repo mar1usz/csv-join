@@ -14,7 +14,7 @@ CsvJoin.exe SQLQuery.sql Data > joined_sales.csv
 
 ## Build and run:
 ### VS:
-- src\CsvJoin.sln > Build > Rebuild Solution
+- src\CsvJoin.sln > Build > Build Solution
 ### Cmd:
 - `CsvJoin.SqlGenerator.exe Data sales.csv new_sales.csv > SQLQuery.sql`
 - Verify that the generated file (SQLQuery.sql) does not contain SQL injection
