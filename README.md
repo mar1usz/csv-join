@@ -14,7 +14,7 @@ CsvJoin.exe SQLQuery.sql Data > joined_sales.csv
 
 ## Build and run:
 ### VS:
-- src\CsvJoin.sln > Build
+- src\CsvJoin.sln > Build > Rebuild Solution
 ### CMD:
 - `CsvJoin.CsvJoin.SqlGenerator.exe Data sales.csv new_sales.csv > SQLQuery.sql`
 - Verify that the generated file (SQLQuery.sql) does not contain SQL injection
@@ -23,7 +23,7 @@ CsvJoin.exe SQLQuery.sql Data > joined_sales.csv
 ## Prerequisites:
 - Microsoft Access Database Engine 2016 Redistributable
 - .NET Core 3.1
-- Visual Studio 2019
+- Visual Studio 2022
 
 ## Acknowledgements:
 - Microsoft.Extensions.DependencyInjection by https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection (MIT license)
