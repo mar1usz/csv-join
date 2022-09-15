@@ -1,7 +1,7 @@
 # CSV Join SQL
 A command-line tool for performing full outer joins on CSV files in C# .NET Core using SQL:
 ```
-CsvJoin.CsvJoin.SqlGenerator.exe Data sales.csv new_sales.csv > SQLQuery.sql
+CsvJoin.SqlGenerator.exe Data sales.csv new_sales.csv > SQLQuery.sql
 ```
 ```
 CsvJoin.exe SQLQuery.sql Data > joined_sales.csv
@@ -16,7 +16,7 @@ CsvJoin.exe SQLQuery.sql Data > joined_sales.csv
 ### VS:
 - src\CsvJoin.sln > Build > Rebuild Solution
 ### Cmd:
-- `CsvJoin.CsvJoin.SqlGenerator.exe Data sales.csv new_sales.csv > SQLQuery.sql`
+- `CsvJoin.SqlGenerator.exe Data sales.csv new_sales.csv > SQLQuery.sql`
 - Verify that the generated file (SQLQuery.sql) does not contain SQL injection
 - `CsvJoin.exe SqlQuery.sql Data > joined_sales.csv`
 
