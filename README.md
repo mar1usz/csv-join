@@ -2,6 +2,8 @@
 A command-line tool for performing full outer joins on CSV files in C# .NET Core using SQL:
 ```
 CsvJoin.CsvJoin.SqlGenerator.exe Data sales.csv new_sales.csv > SQLQuery.sql
+```
+```
 CsvJoin.exe SQLQuery.sql Data > joined_sales.csv
 ```
 
