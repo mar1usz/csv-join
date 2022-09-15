@@ -13,7 +13,9 @@ CsvJoin.exe SQLQuery.sql Data > joined_sales.csv
 - Save results to CSV
 
 ## Build and run:
+### VS:
 - src\CsvJoin.sln > Build
+### CMD:
 - `CsvJoin.CsvJoin.SqlGenerator.exe Data sales.csv new_sales.csv > SQLQuery.sql`
 - Verify that the generated file (SQLQuery.sql) does not contain SQL injection
 - `CsvJoin.exe SqlQuery.sql Data > joined_sales.csv`
